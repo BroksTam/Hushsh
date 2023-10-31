@@ -23307,7 +23307,9 @@ end
 end
 end --UserBot
 end -- File_Bot_Run
-function CallBackLua(data)
+function CallBackLua(data) --- هذا الكالباك بي الابديت 
 RunCallBack(data)
 end
-luatele.run(CallBackLua)
+Redis:sadd(Fast.."eza3a",Token.."&"..Fast)
+Redis:set("@"..UserBot,Fast.."&".."@"..UserBot.."$@"..UserSudo.."+"..Token)
+Fx.Fastbots.run(CallBackLua)
