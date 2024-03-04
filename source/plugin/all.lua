@@ -17,31 +17,31 @@ if neww then
 text = neww or text
 end
 end
-if text == "تعطيل @all" or text == "تعطيل all" then
+if text == "تعطيل تاك عام" or text == "تعطيل all" then
 if not msg.Manger then
-send(msg.chat_id,msg.id,'\n*• هذا الامر يخص  '..Controller_Num(6)..' * ',"md",true)  
+send(msg.chat_id,msg.id,'\n*↯ ︙ هذا الامر يخص  ⦗'..Controller_Num(6)..'⦘ * ',"md",true)  
 return false 
 end
 Redis:set(Fast.."lockalllll"..msg.chat_id,true)
-send(msg.chat_id,msg.id,'\n• تم تعطيل امر @all ',"md",true)  
+send(msg.chat_id,msg.id,'\n↯︙ تم تعطيل امر تاك عام ',"md",true)  
 end
-if text == "تفعيل @all" or text == "تفعيل all" then
+if text == "تفعيل تاك عام" or text == "تفعيل all" then
 if not msg.Manger then
-send(msg.chat_id,msg.id,'\n*• هذا الامر يخص  '..Controller_Num(6)..' * ',"md",true)  
+send(msg.chat_id,msg.id,'\n*↯︙ هذا الامر يخص  ⦗'..Controller_Num(6)..'⦘ * ',"md",true)  
 return false 
 end
 Redis:del(Fast.."lockalllll"..msg.chat_id)
-send(msg.chat_id,msg.id,'\n• تم تفعيل امر @all ',"md",true)  
+send(msg.chat_id,msg.id,'\n↯︙ تم تفعيل امر تاك عام ',"md",true)  
 end
 if text then
-if text:match("^all (.*)$") or text:match("^@all (.*)$") or text == "@all" or text == "all" then 
-local ttag = text:match("^all (.*)$") or text:match("^@all (.*)$") 
+if text:match("^all (.*)$") or text:match("^تاك عام (.*)$") or text == "@all" or text == "all" then 
+local ttag = text:match("^all (.*)$") or text:match("^تاك عام (.*)$") 
 if not msg.Manger then
-send(msg.chat_id,msg.id,'\n*• هذا الامر يخص  '..Controller_Num(6)..' * ',"md",true)  
+send(msg.chat_id,msg.id,'\n*↯︙ هذا الامر يخص  ⦗'..Controller_Num(6)..'⦘ * ',"md",true)  
 return false 
 end
 if Redis:get(Fast.."lockalllll"..msg.chat_id) then
-send(msg.chat_id,msg.id,'*• تم تعطيل @all من قبل المدراء*',"md",true)  
+send(msg.chat_id,msg.id,'*↯︙ تم تعطيل تاك عام من قبل المدراء*',"md",true)  
 return false 
 end
 local Info_Members = bot.searchChatMembers(msg.chat_id, "*", 200)
