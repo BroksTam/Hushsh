@@ -16,17 +16,15 @@ end
 end
 
 if text == "قفل الاباحي" then
-if not msg.Manger then
-send(msg.chat_id,msg.id,'\n*↯ ︙ هذا الامر يخص  '..Controller_Num(6)..' * ',"md",true)  
-return false 
+if not msg.Ownerss then
+return send(msg_chat_id,msg_id,'\n*↯︙ هذا الامر يخص { '..Controller_Num(8)..' , مالك الكروب }* ',"md",true)  
 end
 Redis:set(Fast..msg.chat_id..'porn',true)
 send(msg.chat_id,msg.id,'\n↯ ︙ تم قفل الاباحي بنجاح')
 end
 if text == "فتح الاباحي" then
-if not msg.Manger then
-send(msg.chat_id,msg.id,'\n*↯ ︙ هذا الامر يخص  '..Controller_Num(6)..' * ',"md",true)  
-return false 
+if not msg.Ownerss then
+return send(msg_chat_id,msg_id,'\n*↯︙ هذا الامر يخص { '..Controller_Num(8)..' , مالك الكروب }* ',"md",true)  
 end
 Redis:del(Fast..msg.chat_id..'porn')
 send(msg.chat_id,msg.id,'\n↯ ︙ تم فتح الاباحي بنجاح')
@@ -94,7 +92,7 @@ os.remove(""..num.."."..typeee.."")
 end
 end
 
-if text == "مسح البورنو" and msg.Manger then
+if text == "مسح التعليك" and msg.Manger then
 Redis:del("sex_ids")
 Redis:del("not_sex_ids")
 send(msg.chat_id,msg.id,"↯ ︙ تم المسح حبيبي .")
