@@ -221,33 +221,7 @@ keyboard.inline_keyboard = {
 local msgg = msg_id/2097152/0.5
 return https.request("https://api.telegram.org/bot"..Token.."/sendvideo?chat_id=" .. msg_chat_id .. "&video=https://t.me/DEV_JABWA/175&caption=".. URL.escape(Text).."&reply_to_message_id="..msgg.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(keyboard))
 end
-if text == "مح" or text == "بوسه" or text == "مح فبؤقك" then
-local Message_Reply = bot.getMessage(msg.chat_id, msg.reply_to_message_id)
-local ban = bot.getUser(Message_Reply.sender_id.user_id)
-local bain = bot.getUser(senderr)
-if tonumber(Message_Reply.sender_id.user_id) == tonumber(senderr) then
-return bot.sendText(msg_chat_id,msg_id,"*اععع تريد تبوس نفسك *","md",true)  
-end
-if tonumber(Message_Reply.sender_id.user_id) == tonumber(5876056887) then
-return bot.sendText(msg_chat_id,msg_id,"*لا استطيع استخدام الأمر علي قيصر بيه*","md",true)  
-end
-if tonumber(Message_Reply.sender_id.user_id) == tonumber(Fast) then
-return bot.sendText(msg_chat_id,msg_id,"*لا استخدم الأمر علي نفسي ياغبي *","md",true)  
-end
-if ban.first_name then
-Text = '*💞 القميل * ['..bain.first_name..'](tg://user?id='..bain.id..')\n* دزلك بوسه * ['..ban.first_name..'](tg://user?id='..ban.id..')\n*↯︙ تم القبله بنجاح 🥺♥\n*'
-else
-Text = 'لا يوجد'
-end
- keyboard = {} 
-keyboard.inline_keyboard = {
-{
-{text = ' - الي نطيته الحلك', url = "https://t.me/"..ban.username..""},
-},
-}
-local msgg = msg_id/2097152/0.5
-return https.request("https://api.telegram.org/bot"..Token.."/sendvideo?chat_id=" .. msg_chat_id .. "&video=https://t.me/DEV_JABWA/199&caption=".. URL.escape(Text).."&reply_to_message_id="..msgg.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(keyboard))
-end
+
 if text == "نداء" or text == "صيح" then
 local Info_Chats = bot.getSupergroupFullInfo(msg.chat_id)
 local chat_Members = bot.searchChatMembers(msg_chat_id, "*", Info_Chats.member_count).members
@@ -255,7 +229,7 @@ local rand_members = math.random(#chat_Members)
 local member_id = chat_Members[rand_members].member_id.user_id
 local member_name = bot.getUser(chat_Members[rand_members].member_id.user_id).first_name
 local Mostafa = "["..member_name.."](tg://user?id="..member_id..")"
-local JABWA = {"وينك يا برو صديقك يحتاجك 💕.","• يـا قمـري ❤️‍🔥","اخي شلون م تحكي معنا 🤔.","وينك كلبي صديقك يحتاجك 💗.","منورنا يقمر 🌚🤍","• يـا قمـري ❤️‍🔥","لينا ساعه نطرينك اخي 😾."}
+local JABWA = {"وينك يا برو صديقك يحتاجك 💕.","• يـا قمـري ❤️‍🔥","اخي شلون م تحكي معنا 🤔.","وينك كلبي صديقك يحتاجك 💗.","منورنا يقمر 🌚🤍","• يـا قمـري ❤️‍🔥","شوكت تجينه حبيبي"}
 local Text = JABWA[math.random(#JABWA)]
 return bot.sendText(msg_chat_id,msg_id,"* "..Text.." *\n "..Mostafa.." ","md",true)
 end
@@ -430,10 +404,8 @@ keyboard = {}
 keyboard.inline_keyboard = {
 {{text = '- 𝖳𝖾𝖺𝗆 𝖡𝖱𝗈k𝖲. ',url='http://t.me/'..chsource..''}},
 }
-local MsgId = msg.id/2097152/0.5
-local MSGID = msg.id/2097152/0.5
-https.request("https://api.telegram.org/bot"..Token..'/sendVoice?chat_id=' .. msg.chat_id .. '&voice=https://t.me/XX_kato/'..Abs..'&caption=' .. URL.escape(Text).."&reply_to_message_id="..MSGID.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(keyboard)) 
-end
+local msg_id = msg.id/2097152/0.5
+https.request("https://api.telegram.org/bot"..Token..'/sendVoice?chat_id=' .. msg.chat_id .. '&voice=https://t.me/XX_kato/'..Abs..'&caption=' .. URL.escape(Text).."&reply_to_message_id="..msg_id.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(keyboard)) 
 end
 if text and text:match("^معنى (.*)$") then 
 local TextMean = text:match("^معنى (.*)$") or text:match("^معنى اسم (.*)$") 
