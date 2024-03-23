@@ -407,6 +407,7 @@ keyboard.inline_keyboard = {
 local msg_id = msg.id/2097152/0.5
 https.request("https://api.telegram.org/bot"..Token..'/sendVoice?chat_id=' .. msg.chat_id .. '&voice=https://t.me/XX_kato/'..Abs..'&caption=' .. URL.escape(Text).."&reply_to_message_id="..msg_id.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(keyboard)) 
 end
+end
 if text and text:match("^معنى (.*)$") then 
 local TextMean = text:match("^معنى (.*)$") or text:match("^معنى اسم (.*)$") 
 if not Redis:get(Fast..'mynames'..msg.chat_id)  then
