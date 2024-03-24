@@ -35,8 +35,8 @@ return bot.sendText(msg_chat_id,msg_id,texting[math.random(#texting)],'md')
 end
  if text and text:match("^حظر قناة @(%S+)$") or text and text:match("^حظر قناه @(%S+)$") then
 local User = text:match("^حظر قناة @(%S+)$") or text:match("^حظر قناه @(%S+)$")
-if not msg.Originators then
-return send(msg_chat_id,msg_id,"\n⇜ هذا الامر يخص ( "..Controller_Num(5).." ) ","md",true)  
+if not msg.Manger then
+return send(msg.chat_id,msg.id,"• هذا الأمر يخص المدير")
 end
 local UserInfo = bot.searchPublicChat(User)
 if not UserInfo.id then
@@ -108,138 +108,7 @@ local UserInfo = bot.getUser(msg.sender_id.user_id)
 local Teext = '⇜ من ['..UserInfo.first_name..'](tg://user?id='..msg.sender_id.user_id..')\n'
 send(msg.chat_id,msg.id, Teext..t,"md",true)
 end
- if text and text:match('^صورتي (%d+)$') or text and text:match('^افتاري (%d+)$') then
-numbermyphh = text:match('^صورتي (%d+)$') or text:match('^افتاري (%d+)$')
-numbermyph = math.floor(numbermyphh)
-if numbermyph then
-numbermypho = numbermyph
-else
-numbermypho = 1
-end
-local photo = bot.getUserProfilePhotos(msg.sender_id.user_id)
-if photo.total_count < numbermyph then
-return send(msg_chat_id, msg_id , "⇜ عدد صورك "..photo.total_count.." وليس "..numbermyph.."")
-end
-if not Redis:get(Fast..'myphoto'..msg.chat_id) then
-if Redis:get(Fast.."NSFW:"..msg.chat_id) then
-if not msg.ControllerBot then
-if not msg.TheBasicsQ then 
-local TotalPhoto = photo.total_count or 0
-if photo.total_count > 0 then
-local thumb_id = photo.photos[numbermypho].sizes[#photo.photos[1].sizes].photo.remote.id
-local api_ = request('http://161.35.201.62:8080/nsfw?token=' .. Token .. '&file_id='..thumb_id)
-local api = JSON.decode(api_)
-if api.result.is_nsfw == true then
-local ban = bot.getUser(msg.sender_id.user_id)
-if ban.first_name then
-news = ban.first_name
-else
-news = " لا يوجد اسم"
-end
-if msg.can_be_deleted_for_all_users == false then
-return send(msg_chat_id,msg_id,"\n⇜ عذراً البوت ليس مشرف في القروب يرجى رفعه واعطائه الصلاحيات ","md",true)  
-end
-if GetInfoBot(msg).BanUser == false then
-return send(msg_chat_id,msg_id,'\n⇜ البوت ليس لديه صلاحيه حظر المستخدمين ',"md",true)
-end
-bot.setChatMemberStatus(msg.chat_id,msg.sender_id.user_id,'restricted',{1,0,0,0,0,0,0,0,0})
-return send(msg_chat_id, msg_id , "「 "..news.." 」\n⇜ قام باستخدام امر صورتي وصورته اباحية\n⇜ تم تقييده ومسح رسالته\n✧")
-end
-end
-end
-end
-end
-local photo = bot.getUserProfilePhotos(msg.sender_id.user_id)
-local TotalPhoto = photo.total_count or 0
-if photo.total_count > 0 then
-if photo.photos[numbermypho].animation then
-local File = request("https://api.telegram.org/bot" .. Token .. "/getfile?file_id="..photo.photos[numbermypho].animation.file.remote.id) 
-local fc = JSON.decode(File)
-local Name_File = download("https://api.telegram.org/file/bot"..Token.."/"..JSON.decode(File).result.file_path, "./id.mp4") 
-return bot.sendAnimation(msg.chat_id, msg.id, Name_File,
-"صورتك رقم : "..numbermyph..
-"\nعدد صورك : "..TotalPhoto..
-"") 
-else
-return bot.sendPhoto(msg.chat_id, msg.id, photo.photos[numbermypho].sizes[#photo.photos[1].sizes].photo.remote.id,
-"صورتك رقم : "..numbermyph..
-"\nعدد صورك : "..TotalPhoto..
-"") 
-end
-end
-end
-end
- if text == "ثنائي اليوم" or text == "ثنائي" and Redis:get(Fast.."Fast:Althnaee:Chat"..msg.chat_id) then
-if Redis:get(Fast.."ThnaeeDay:ex"..msg.chat_id) then
-ThnaeeDaynameone = Redis:get(Fast.."ThnaeeDay:nameone"..msg.chat_id)
-ThnaeeDaynametwo = Redis:get(Fast.."ThnaeeDay:nametwo"..msg.chat_id)
-ThnaeeDayidone = Redis:get(Fast.."ThnaeeDay:idone"..msg.chat_id)
-ThnaeeDayidtwo = Redis:get(Fast.."ThnaeeDay:idtwo"..msg.chat_id)
-if tonumber(Redis:ttl(Fast.."ThnaeeDay:ex"..msg.chat_id)) >= 83000 then
-hourthn = "23 ساعة"
-elseif tonumber(Redis:ttl(Fast.."ThnaeeDay:ex"..msg.chat_id)) >= 77400 then
-hourthn = "21 ساعة"
-elseif tonumber(Redis:ttl(Fast.."ThnaeeDay:ex"..msg.chat_id)) >= 70200 then
-hourthn = "19 ساعة"
-elseif tonumber(Redis:ttl(Fast.."ThnaeeDay:ex"..msg.chat_id)) >= 63000 then
-hourthn = "17 ساعة"
-elseif tonumber(Redis:ttl(Fast.."ThnaeeDay:ex"..msg.chat_id)) >= 55800 then
-hourthn = "15 ساعة"
-elseif tonumber(Redis:ttl(Fast.."ThnaeeDay:ex"..msg.chat_id)) >= 48600 then
-hourthn = "13 ساعة"
-elseif tonumber(Redis:ttl(Fast.."ThnaeeDay:ex"..msg.chat_id)) >= 41400 then
-hourthn = "11 ساعة"
-elseif tonumber(Redis:ttl(Fast.."ThnaeeDay:ex"..msg.chat_id)) >= 34200 then
-hourthn = "9 ساعات"
-elseif tonumber(Redis:ttl(Fast.."ThnaeeDay:ex"..msg.chat_id)) >= 27000 then
-hourthn = "7 ساعات"
-elseif tonumber(Redis:ttl(Fast.."ThnaeeDay:ex"..msg.chat_id)) >= 19800 then
-hourthn = "5 ساعات"
-elseif tonumber(Redis:ttl(Fast.."ThnaeeDay:ex"..msg.chat_id)) >= 12600 then
-hourthn = "3 ساعات"
-elseif tonumber(Redis:ttl(Fast.."ThnaeeDay:ex"..msg.chat_id)) >= 3600 then
-hourthn = "ساعتين"
-elseif tonumber(Redis:ttl(Fast.."ThnaeeDay:ex"..msg.chat_id)) <= 3599 then
-hourthn = "ساعة"
-else
-hourthn = " لم يحدد الوقت "
-end
-local listTow = "• تم إختيار ثنائي اليوم مسبقاً : \n["..ThnaeeDaynameone.."](tg://user?id="..ThnaeeDayidone..") + ["..ThnaeeDaynametwo.."](tg://user?id="..ThnaeeDayidtwo..") = ❤️\n⏳ سيتم اختيار ثنائي آخر بعد "..hourthn.." "
-return send(msg.chat_id,msg.id,listTow,"md",true) 
-end
-local Info_Members = bot.searchChatMembers(msg.chat_id, "*", 200)
-local List_Members = Info_Members.members
-local NumRand1 = math.random(1, #List_Members); 
-local NumRand2 = math.random(1, #List_Members); 
-local user1 = List_Members[NumRand1].member_id.user_id
-local user2 = List_Members[NumRand2].member_id.user_id
-local UserInfo = bot.getUser(user1)
-local UserInfoo = bot.getUser(user2)
-local listTow = "• تم إختيار ثنائي اليوم : \n["..FlterBio(UserInfo.first_name).."](tg://user?id="..UserInfo.id..") + ["..UserInfoo.first_name.."](tg://user?id="..UserInfoo.id..") = ❤️\n⏳ سيتم اختيار ثنائي آخر بعد 24 ساعة"
-Redis:set(Fast.."ThnaeeDay:nameone"..msg.chat_id,FlterBio(UserInfo.first_name))
-Redis:set(Fast.."ThnaeeDay:nametwo"..msg.chat_id,FlterBio(UserInfoo.first_name))
-Redis:set(Fast.."ThnaeeDay:idone"..msg.chat_id,UserInfo.id)
-Redis:set(Fast.."ThnaeeDay:idtwo"..msg.chat_id,UserInfoo.id)
-Redis:setex(Fast.."ThnaeeDay:ex"..msg.chat_id,86400,true)
-return send(msg.chat_id,msg.id,listTow,"md",true)  
-end
-if Redis:get(Fast.."Fast:Althnaee:Chat"..msg.chat_id) and tonumber(Redis:ttl(Fast.."ThnaeeDay:ex"..msg.chat_id)) <= 1 then
-local Info_Members = bot.searchChatMembers(msg.chat_id, "*", 200)
-local List_Members = Info_Members.members
-local NumRand1 = math.random(1, #List_Members); 
-local NumRand2 = math.random(1, #List_Members); 
-local user1 = List_Members[NumRand1].member_id.user_id
-local user2 = List_Members[NumRand2].member_id.user_id
-local UserInfo = bot.getUser(user1)
-local UserInfoo = bot.getUser(user2)
-local listTow = "• تم إختيار ثنائي اليوم : \n["..FlterBio(UserInfo.first_name).."](tg://user?id="..UserInfo.id..") + ["..UserInfoo.first_name.."](tg://user?id="..UserInfoo.id..") = ❤️\n⏳ سيتم اختيار ثنائي آخر بعد 24 ساعة"
-Redis:set(Fast.."ThnaeeDay:nameone"..msg.chat_id,FlterBio(UserInfo.first_name))
-Redis:set(Fast.."ThnaeeDay:nametwo"..msg.chat_id,FlterBio(UserInfoo.first_name))
-Redis:set(Fast.."ThnaeeDay:idone"..msg.chat_id,UserInfo.id)
-Redis:set(Fast.."ThnaeeDay:idtwo"..msg.chat_id,UserInfoo.id)
-Redis:setex(Fast.."ThnaeeDay:ex"..msg.chat_id,86400,true)
-return send(msg.chat_id,0,listTow,"md",true)
-end
+ 
  if text == 'ابلاغ' or text == 'بلاغ' or text == 'تبليغ' and tonumber(msg.reply_to_message_id) ~= 0 then
 if Redis:get(Fast.."rebomsg"..msg.chat_id) then
 local Remsg = bot.getMessage(msg.chat_id, msg.reply_to_message_id)
