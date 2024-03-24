@@ -50,8 +50,8 @@ send(msg.chat_id,msg.id,"\n⇜ حدث خطأ ...","md",true)
 end
 end
  if text == "تنظيف التعديل" or text == "مسح التعديل" or text == "امسحح" then
-if not msg.Addictive then
-return send(msg_chat_id,msg_id,'\n⇜ هذا الامر يخص ( '..Controller_Num(7)..' ) ',"md",true)  
+if not msg.Manger then
+return send(msg.chat_id,msg.id,"• هذا الأمر يخص المدير")
 end
 send(msg.chat_id,msg.id,"⇜ اصبر ابحثلك عن الرسائل المعدله","md",true)
 msgid = (msg.id - (1048576*250))
