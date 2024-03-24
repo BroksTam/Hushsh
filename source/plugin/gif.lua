@@ -72,42 +72,7 @@ t = "⇜ ابشر مسحت ( "..y.." ) من الرسائل المعدلة"
 end
 send(msg.chat_id,msg.id,t,"md",true)  
 end
- if text == ("مسح الفويسات") or text == ("مسح البصمات") or text == ("تنظيف الفويسات") or text == ("تنظيف البصمات") then
-if not msg.Managers then
-return send(msg_chat_id,msg_id,'\n⇜ هذا الامر يخص ( '..Controller_Num(6)..' ) ',"md",true)  
-end
-local list = Redis:smembers(Fast.."Fast:all:voice"..msg.chat_id)
-for k,v in pairs(list) do
-local Message = v
-if Message then
-t = "⇜ ابشر مسحت ( "..k.." ) من الفويسات"
-bot.deleteMessages(msg.chat_id,{[1]= Message})
-Redis:del(Fast.."Fast:all:voice"..msg.chat_id)
-end
-end
-if #list == 0 then
-t = "⇜ لا يوجد فويسات في القروب"
-end
-  if text == ("مسح القيفات") or text == ("مسح المتحركات") or text == ("تنظيف القيفات") or text == ("تنظيف المتحركات") or text == ("مسح متحركات") or text == ("مسح المتحركة") or text == ("مسح المتحركه") then
-if not msg.Managers then
-return send(msg_chat_id,msg_id,'\n⇜ هذا الامر يخص ( '..Controller_Num(6)..' ) ',"md",true)  
-end
-local list = Redis:smembers(Fast.."Fast:all:anim"..msg.chat_id)
-for k,v in pairs(list) do
-local Message = v
-if Message then
-t = "⇜ ابشر مسحت ( "..k.." ) من القيفات"
-bot.deleteMessages(msg.chat_id,{[1]= Message})
-Redis:del(Fast.."Fast:all:anim"..msg.chat_id)
-end
-end
-if #list == 0 then
-t = "⇜ لا يوجد قيفات في القروب"
-end
-local UserInfo = bot.getUser(msg.sender_id.user_id)
-local Teext = '⇜ من ['..UserInfo.first_name..'](tg://user?id='..msg.sender_id.user_id..')\n'
-send(msg.chat_id,msg.id, Teext..t,"md",true)
-end
+ 
  
  if text == 'ابلاغ' or text == 'بلاغ' or text == 'تبليغ' and tonumber(msg.reply_to_message_id) ~= 0 then
 if Redis:get(Fast.."rebomsg"..msg.chat_id) then
