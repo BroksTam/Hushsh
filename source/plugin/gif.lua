@@ -16,6 +16,28 @@ if neww then
 text = neww or text
 end
 end
+if text == 'تاك ايموجي' or text == 'منشن ايموجي' then
+if not msg.Manger then
+return send(msg.chat_id,msg.id,"• هذا الأمر يخص المدير")
+end
+if ChannelJoinch(msg) == false then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = Redis:get(Fast..'Fast:Chat:Channel:Join:Name'..msg.chat_id), url = 't.me/'..Redis:get(Fast..'Fast:Chat:Channel:Join'..msg.chat_id)}, },}}
+return send(msg.chat_id,msg.id,'\n⇜ عليك الاشتراك في قناة البوت لاستخدام الاوامر',"md",false, false, false, false, reply_markup)
+end
+if ChannelJoin(msg) == false then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = Redis:get(Fast..'Fast:Channel:Join:Name'), url = 't.me/'..Redis:get(Fast..'Fast:Channel:Join')}, },}}
+return send(msg.chat_id,msg.id,'\n⇜ عليك الاشتراك في قناة البوت لاستخدام الاوامر',"md",false, false, false, false, reply_markup)
+end
+local Info = bot.searchChatMembers(msg.chat_id, "*", 100)
+local members = Info.members
+ls = '\n\n━━━━━━━━━ \n'
+for k, v in pairs(members) do
+local Textingt = {"❤️", "🧡", "💛", "💚", "💙", "💜", "🖤", "🤍", "🤎", "🙂", "🙃", "😉", "😌", "😍", "🥰", "😘", "😗", "😙", "😚", "😋", "😛", "😝", "😜", "🤪", "🤨", "🧐", "🤓", "😎", "🤩", "🥳", "😏", "😒", "😞", "😟", "😕", "🙁", "😣", "😖", "😫", "😩", "🥺", "😢", "😭", "😤", "😠", "😡", "🤯", "😳", "🥵", "🥶", "😱", "😨", "😰", "😥", "😓", "🤗", "🤔", "🤭", "🤫", "🤥", "😶", "😐", "😑", "😬", "🙄", "😯", "😦", "😧", "😮", "😲", "🥱", "😴", "🤤", "😪", "😵", "🤐", "🥴", "🤢", "🤮", "🤧", "😷", "🤒", "🤕", "🤑", "🤠", "😈", "👹", "👺", "🤡",}
+local Descriptiont = Textingt[math.random(#Textingt)]
+ls = ls..' ['..Descriptiont..'](tg://user?id='..v.member_id.user_id..')\n'
+end
+send(msg.chat_id,msg.id,ls,"md",true)  
+end
 if text == "اضف سؤال جمل" then
 if not msg.Manger then
 return send(msg.chat_id,msg.id,"• هذا الأمر يخص المدير")
@@ -52,9 +74,6 @@ return send(msg_chat_id,msg_id, '\n⇜ تم حفظ السؤال ')
 end
 end
 if text == "بوب" or text == "مشاهير" then
-if not Redis:get(Fast.."Fast:Status:Games"..msg.chat_id) then
-return send(msg.chat_id,msg.id,"⇜ الالعاب معطلة من قبل المشرفين","md",true)
-end
 KlamSpeed = {"شوان","سام","ايد شيرين","جاستين","اريانا","سام سميث","ايد","جاستين","معزه","ميسي","صلاح","محمد صلاح","احمد عز","كريستيانو","كريستيانو رونالدو","رامز جلال","امير كراره","ويجز","بابلو","تامر حسني","ابيو","شيرين","نانسي عجرم","محمد رمضان","احمد حلمي","محمد هنيدي","حسن حسني","حماقي","احمد مكي"};
 name = KlamSpeed[math.random(#KlamSpeed)]
 Redis:set(Fast.."mshaher"..msg.chat_id,name)
@@ -91,9 +110,6 @@ name = string.gsub(name,"حماقي","https://t.me/HC6HH/31")
 https.request("https://api.telegram.org/bot"..Token.."/sendphoto?chat_id="..msg.chat_id.."&photo="..name.."&caption="..URL.escape("اسرع واحد يقول اسم هذا الفنان").."&reply_to_message_id="..(msg.id/2097152/0.5))
 end
 if text == "حيوان" or text == "حيوانات" then
-if not Redis:get(Fast.."Fast:Status:Games"..msg.chat_id) then
-return send(msg.chat_id,msg.id,"⇜ الالعاب معطلة من قبل المشرفين","md",true)
-end
 KlamSpeedd = {"ثعلب","حمار وحشي","اسد","نمر","حصان","فرس النهر","سنجاب","كنغر","فيل","قطه","نسر","صقر","قرد","ضفدع","حرباء"};
 name = KlamSpeedd[math.random(#KlamSpeedd)]
 Redis:set(Fast.."mshaherr"..msg.chat_id,name)
@@ -115,9 +131,6 @@ name = string.gsub(name,"حرباء","https://t.me/YAFAEVI/16")
 https.request("https://api.telegram.org/bot"..Token.."/sendphoto?chat_id="..msg.chat_id.."&photo="..name.."&caption="..URL.escape("اسرع واحد يقول اسم هذا الحيوان").."&reply_to_message_id="..(msg.id/2097152/0.5))
 end
 if text == "زووم" or text == "زوم" then
-if not Redis:get(Fast.."Fast:Status:Games"..msg.chat_id) then
-return send(msg.chat_id,msg.id,"⇜ الالعاب معطلة من قبل المشرفين","md",true)
-end
 KlamSpeeddd = {"فراوله","غيوم","قط","عشب","بطه","الماس","شمس","حاسبه","فطر","موقد","ساعه","حذاء","مفتاح","كرز","جبن","سلحفاه","شعر","نظاره","حمار وحشي","سلطه","بطيخ","كتاب","طماطم","ديك","كرسي","حجاب","بوصله"};
 name = KlamSpeeddd[math.random(#KlamSpeeddd)]
 Redis:set(Fast.."mshaherrr"..msg.chat_id,name)
@@ -165,10 +178,6 @@ Redis:set(Fast.."Fast:Status:Games:malk"..msg_chat_id,true)
 return send(msg_chat_id,msg_id,GetByName(msg).."⇜ تم تعطيل الالعاب المالكين","md",true )
 end
 if text == 'جمل' then
-if Redis:get(Fast.."Fast:Status:Games:malk"..msg.chat_id) then
-return false 
-end
-if Redis:get(Fast.."Fast:Status:Games"..msg.chat_id) then
 local list = {
 "الممكن/والمستطاع*يقيم في/أحلام العاجز",
 "الكلمة اللينة*تصريح/بالدخول*إلى القلوب",
