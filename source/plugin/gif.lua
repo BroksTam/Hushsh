@@ -16,7 +16,286 @@ if neww then
 text = neww or text
 end
 end
-
+if text == "اضف سؤال جمل" then
+if not msg.Manger then
+return send(msg.chat_id,msg.id,"• هذا الأمر يخص المدير")
+end
+Redis:set(Fast.."makal:bots:set"..msg.sender_id.user_id..":"..msg.chat_id,true)
+return send(msg_chat_id,msg_id,"⇜ ارسل السؤال الان ")
+end
+if text == "مسح سؤال جمل" then
+if not msg.Manger then
+return send(msg.chat_id,msg.id,"• هذا الأمر يخص المدير")
+end
+Redis:set(Fast.."makal:bots:del"..msg.sender_id.user_id..":"..msg.chat_id,true)
+return send(msg_chat_id,msg_id,"⇜ ارسل لي السؤال")
+end
+if text == "مسح الجمل" then
+if not msg.Manger then
+return send(msg.chat_id,msg.id,"• هذا الأمر يخص المدير")
+end
+Redis:del(Fast.."makal:bots")
+return send(msg_chat_id,msg_id,"⇜ تم مسح الجمل")
+end
+if text and text:match("^(.*)$") then
+if Redis:get(Fast.."makal:bots:del"..msg.sender_id.user_id..":"..msg.chat_id) == "true" then
+Redis:set(Fast.."makal:bots:del"..msg.sender_id.user_id..":"..msg.chat_id,"true1uu")
+Redis:srem(Fast.."makal:bots", text)
+return send(msg_chat_id,msg_id, '\n⇜ تم مسح السؤال')
+end
+end
+if text and text:match("^(.*)$") then
+if Redis:get(Fast.."makal:bots:set"..msg.sender_id.user_id..":"..msg.chat_id) == "true" then
+Redis:set(Fast.."makal:bots:set"..msg.sender_id.user_id..":"..msg.chat_id,"true1uu")
+Redis:sadd(Fast.."makal:bots", text)
+return send(msg_chat_id,msg_id, '\n⇜ تم حفظ السؤال ')
+end
+end
+if text == "بوب" or text == "مشاهير" then
+if not Redis:get(Fast.."Fast:Status:Games"..msg.chat_id) then
+return send(msg.chat_id,msg.id,"⇜ الالعاب معطلة من قبل المشرفين","md",true)
+end
+KlamSpeed = {"شوان","سام","ايد شيرين","جاستين","اريانا","سام سميث","ايد","جاستين","معزه","ميسي","صلاح","محمد صلاح","احمد عز","كريستيانو","كريستيانو رونالدو","رامز جلال","امير كراره","ويجز","بابلو","تامر حسني","ابيو","شيرين","نانسي عجرم","محمد رمضان","احمد حلمي","محمد هنيدي","حسن حسني","حماقي","احمد مكي"};
+name = KlamSpeed[math.random(#KlamSpeed)]
+Redis:set(Fast.."mshaher"..msg.chat_id,name)
+name = string.gsub(name,"شوان","https://t.me/HC6HH/8")
+name = string.gsub(name,"سام","https://t.me/HC6HH/7")
+name = string.gsub(name,"سام سميث","https://t.me/HC6HH/7")
+name = string.gsub(name,"ايد شيرين","https://t.me/HC6HH/6")
+name = string.gsub(name,"ايد","https://t.me/HC6HH/6")
+name = string.gsub(name,"جاستين","https://t.me/HC6HH/4")
+name = string.gsub(name,"جاستين بيبر","https://t.me/HC6HH/4")
+name = string.gsub(name,"اريانا","https://t.me/HC6HH/5")
+name = string.gsub(name,"ميسي","https://t.me/HC6HH/10")
+name = string.gsub(name,"معزه","https://t.me/HC6HH/10")
+name = string.gsub(name,"صلاح","https://t.me/HC6HH/9")
+name = string.gsub(name,"محمد صلاح","https://t.me/HC6HH/9")
+name = string.gsub(name,"احمد عز","https://t.me/HC6HH/12")
+name = string.gsub(name,"كريم عبدالعزيز","https://t.me/HC6HH/11")
+name = string.gsub(name,"كريستيانو رونالدو","https://t.me/HC6HH/13")
+name = string.gsub(name,"كريستيانو","https://t.me/HC6HH/13")
+name = string.gsub(name,"امير كراره","https://t.me/HC6HH/14")
+name = string.gsub(name,"رامز جلال","https://t.me/HC6HH/15")
+name = string.gsub(name,"ويجز","https://t.me/HC6HH/16")
+name = string.gsub(name,"بابلو","https://t.me/HC6HH/17")
+name = string.gsub(name,"ابيو","https://t.me/HC6HH/20")
+name = string.gsub(name,"شيرين","https://t.me/HC6HH/21")
+name = string.gsub(name,"نانسي عجرم","https://t.me/HC6HH/22")
+name = string.gsub(name,"محمد رمضان","https://t.me/HC6HH/25")
+name = string.gsub(name,"احمد حلمي","https://t.me/HC6HH/26")
+name = string.gsub(name,"محمد هنيدي","https://t.me/HC6HH/27")
+name = string.gsub(name,"حسن حسني","https://t.me/HC6HH/28")
+name = string.gsub(name,"احمد مكي","https://t.me/HC6HH/29")
+name = string.gsub(name,"تامر حسني","https://t.me/HC6HH/30")
+name = string.gsub(name,"حماقي","https://t.me/HC6HH/31")
+https.request("https://api.telegram.org/bot"..Token.."/sendphoto?chat_id="..msg.chat_id.."&photo="..name.."&caption="..URL.escape("اسرع واحد يقول اسم هذا الفنان").."&reply_to_message_id="..(msg.id/2097152/0.5))
+end
+if text == "حيوان" or text == "حيوانات" then
+if not Redis:get(Fast.."Fast:Status:Games"..msg.chat_id) then
+return send(msg.chat_id,msg.id,"⇜ الالعاب معطلة من قبل المشرفين","md",true)
+end
+KlamSpeedd = {"ثعلب","حمار وحشي","اسد","نمر","حصان","فرس النهر","سنجاب","كنغر","فيل","قطه","نسر","صقر","قرد","ضفدع","حرباء"};
+name = KlamSpeedd[math.random(#KlamSpeedd)]
+Redis:set(Fast.."mshaherr"..msg.chat_id,name)
+name = string.gsub(name,"ثعلب","https://t.me/YAFAEVI/2")
+name = string.gsub(name,"حمار وحشي","https://t.me/YAFAEVI/3")
+name = string.gsub(name,"اسد","https://t.me/YAFAEVI/4")
+name = string.gsub(name,"نمر","https://t.me/YAFAEVI/5")
+name = string.gsub(name,"حصان","https://t.me/YAFAEVI/6")
+name = string.gsub(name,"فرس النهر","https://t.me/YAFAEVI/7")
+name = string.gsub(name,"سنجاب","https://t.me/YAFAEVI/8")
+name = string.gsub(name,"كنغر","https://t.me/YAFAEVI/9")
+name = string.gsub(name,"فيل","https://t.me/YAFAEVI/10")
+name = string.gsub(name,"صقر","https://t.me/YAFAEVI/11")
+name = string.gsub(name,"نسر","https://t.me/YAFAEVI/12")
+name = string.gsub(name,"قطه","https://t.me/YAFAEVI/13")
+name = string.gsub(name,"قرد","https://t.me/YAFAEVI/14")
+name = string.gsub(name,"ضفدع","https://t.me/YAFAEVI/15")
+name = string.gsub(name,"حرباء","https://t.me/YAFAEVI/16")
+https.request("https://api.telegram.org/bot"..Token.."/sendphoto?chat_id="..msg.chat_id.."&photo="..name.."&caption="..URL.escape("اسرع واحد يقول اسم هذا الحيوان").."&reply_to_message_id="..(msg.id/2097152/0.5))
+end
+if text == "زووم" or text == "زوم" then
+if not Redis:get(Fast.."Fast:Status:Games"..msg.chat_id) then
+return send(msg.chat_id,msg.id,"⇜ الالعاب معطلة من قبل المشرفين","md",true)
+end
+KlamSpeeddd = {"فراوله","غيوم","قط","عشب","بطه","الماس","شمس","حاسبه","فطر","موقد","ساعه","حذاء","مفتاح","كرز","جبن","سلحفاه","شعر","نظاره","حمار وحشي","سلطه","بطيخ","كتاب","طماطم","ديك","كرسي","حجاب","بوصله"};
+name = KlamSpeeddd[math.random(#KlamSpeeddd)]
+Redis:set(Fast.."mshaherrr"..msg.chat_id,name)
+name = string.gsub(name,"فراوله","https://t.me/zzommm/2")
+name = string.gsub(name,"غيوم","https://t.me/zzommm/3")
+name = string.gsub(name,"قط","https://t.me/zzommm/4")
+name = string.gsub(name,"عشب","https://t.me/zzommm/5")
+name = string.gsub(name,"بطه","https://t.me/zzommm/6")
+name = string.gsub(name,"الماس","https://t.me/zzommm/7")
+name = string.gsub(name,"شمس","https://t.me/zzommm/8")
+name = string.gsub(name,"حاسبه","https://t.me/zzommm/9")
+name = string.gsub(name,"فطر","https://t.me/zzommm/10")
+name = string.gsub(name,"موقد","https://t.me/zzommm/11")
+name = string.gsub(name,"ساعه","https://t.me/zzommm/12")
+name = string.gsub(name,"حذاء","https://t.me/zzommm/13")
+name = string.gsub(name,"مفتاح","https://t.me/zzommm/14")
+name = string.gsub(name,"كرز","https://t.me/zzommm/15")
+name = string.gsub(name,"جبن","https://t.me/zzommm/16")
+name = string.gsub(name,"سلحفاه","https://t.me/zzommm/17")
+name = string.gsub(name,"شعر","https://t.me/zzommm/18")
+name = string.gsub(name,"نظاره","https://t.me/zzommm/19")
+name = string.gsub(name,"حمار وحشي","https://t.me/zzommm/20")
+name = string.gsub(name,"سلطه","https://t.me/zzommm/21")
+name = string.gsub(name,"بطيخ","https://t.me/zzommm/22")
+name = string.gsub(name,"كتاب","https://t.me/zzommm/23")
+name = string.gsub(name,"طماطم","https://t.me/zzommm/24")
+name = string.gsub(name,"ديك","https://t.me/zzommm/25")
+name = string.gsub(name,"كرسي","https://t.me/zzommm/26")
+name = string.gsub(name,"حجاب","https://t.me/zzommm/27")
+name = string.gsub(name,"بوصله","https://t.me/zzommm/28")
+https.request("https://api.telegram.org/bot"..Token.."/sendphoto?chat_id="..msg.chat_id.."&photo="..name.."&caption="..URL.escape("اسرع واحد يعرف الصوره").."&reply_to_message_id="..(msg.id/2097152/0.5))
+end
+if text == "تفعيل الالعاب المالكين" then
+if not msg.Manger then
+return send(msg.chat_id,msg.id,"• هذا الأمر يخص المدير")
+end
+Redis:del(Fast.."Fast:Status:Games:malk"..msg_chat_id) 
+return send(msg_chat_id,msg_id,GetByName(msg).."⇜ تم تفعيل الالعاب المالكين","md",true )
+end
+if text == "تعطيل الالعاب المالكين" then
+if not msg.Manger then
+return send(msg.chat_id,msg.id,"• هذا الأمر يخص المدير")
+end
+Redis:set(Fast.."Fast:Status:Games:malk"..msg_chat_id,true) 
+return send(msg_chat_id,msg_id,GetByName(msg).."⇜ تم تعطيل الالعاب المالكين","md",true )
+end
+if text == 'جمل' then
+if Redis:get(Fast.."Fast:Status:Games:malk"..msg.chat_id) then
+return false 
+end
+if Redis:get(Fast.."Fast:Status:Games"..msg.chat_id) then
+local list = {
+"الممكن/والمستطاع*يقيم في/أحلام العاجز",
+"الكلمة اللينة*تصريح/بالدخول*إلى القلوب",
+" حاسبوا/أنفسكم*أولاً ثم/غيركم",
+"زمان/أطفالكم*غير/زمانكم",
+" من السهل*أن تصبح/عاقل بعد فوات*الأوان",
+" فانظر*إليها بقلبك/وليس*بعينيك",
+"خاف/الله*أينما/كنت",
+"أحسن/لقول ما*نطق بالعدل/والحق",
+"أن تحافظ على/رجولتك خير من*حفاظك على أموالك",
+"أكثروا*الرزق/بالصدقة",
+"غالبا*ماتصبح/البيضة/سلاحا",
+"كن*عادلاً/قبل أن*تكون*كريماً",
+"كلما أحب/الشخص*نفسه كلما*كره الناس",
+"من يسخر/من المرض*هو من لا يشعر/بالألم.",
+"يظن*الرجل أنه*حكيم/إذا قلت*حكمته.",
+ "اللسان/ليس سلاح*لكنه/يقتل*القلب",
+"أسد مفترس*أمام عينيك/خير من*ثعلب خائن وراء/ظهرك",
+"لسان*لعاقل وراء قلبه*وقلب الأحمق/وراء لسانه",
+"أحقر الناس*من لا يقدر*على/كتمان السر",
+" جميع/لصفات*الحميدة*تتلخص/في العدل",
+" أفضل/عناصر*العدل هي/محاسبة*النفس",
+"لم يعرف*الناس العدل/إلا بوجود*الظلم",
+"العدل*ميزان/الملك",
+"سيف*العدالة*لا ينام/ولا*يسهو",
+"لا تلجأ*إلى ظالم*لكي ينصرك/على ظالم، فتكون*فريسة/هما",
+"تحدثوا مع*الناس/على حسب*عقولهم",
+" لو أنصت*الجاهل/ما اختلف*الناس",
+"إذا تم*العقل قل/الكلام",
+" لا تعد/ما لا تستطيع*الوفاء*به",
+" القليل من*الطعام*يجلب/النوم*المريح",
+"كرم المفسد*رشوة/لجلب*المنفعة",
+"يدوم*الحال/بالرضا*والصبر",
+" تتفاقم*المحن/عندما تكثر*الفتن",
+"ربما*انفرج/الامر إذا/ضاق",
+"سامح*الناس/قبل أن*تسامح/نفسك",
+"شر الناس*من*خاف/الناس/من شره",
+"قلب*العاقل/صندوق*أسراره",
+"ضربة*اللسان أسوأ/من طعنة*السيف",
+"من/سار على*الدرب/وصل",
+"الدهر*يومان*يوم لك/ويوم*عليك",
+" لا تدع/عاطفتك*تخسرك/نفسك",
+"كن*قويا/لأجل/نفسك",
+"ما يستهلك*عقلك/يسيطر على/حياتك"
+}
+if #list ~= 0 then
+quschen = list[math.random(#list)]
+quschen1 = string.gsub(quschen,"-"," ")
+quschen1 = string.gsub(quschen1,"*"," ")
+quschen1 = string.gsub(quschen1,"•"," ")
+quschen1 = string.gsub(quschen1,"_"," ")
+quschen1 = string.gsub(quschen1,","," ")
+quschen1 = string.gsub(quschen1,"/"," ")
+print(quschen1)
+send(msg_chat_id,msg_id,'⇜ اسرع واحد يكتبها بدون اشارات :\n\n['..quschen..'] \n✧',"md")
+Redis:set(Fast.."makal:bots:qus"..msg.chat_id,quschen1)
+Redis:setex(Fast.."mkal:setex:" .. msg.chat_id .. ":" .. msg.sender_id.user_id, 60, true) 
+end
+end
+end
+if text == ""..(Redis:get(Fast.."makal:bots:qus"..msg.chat_id) or '').."" then
+local timemkall = Redis:ttl(Fast.."mkal:setex:" .. msg.chat_id .. ":" .. msg.sender_id.user_id) 
+local timemkal = (60 - timemkall)
+if tonumber(timemkal) == 1 then
+send(msg_chat_id,msg_id,'  استمر ي وحش ! \n عدد الثواني ( '..timemkal..' )\n✧')
+elseif tonumber(timemkal) == 2 then
+send(msg_chat_id,msg_id,'  اكيد محد ينافسك ! \n عدد الثواني ( '..timemkal..' )\n✧')
+elseif tonumber(timemkal) == 3 then
+send(msg_chat_id,msg_id,'  اتوقع محد ينافسك ! \n عدد الثواني ( '..timemkal..' )\n✧')
+elseif tonumber(timemkal) == 4 then
+send(msg_chat_id,msg_id,'  مركب تيربو !  \n عدد الثواني ( '..timemkal..' )\n✧')
+elseif tonumber(timemkal) == 5 then
+send(msg_chat_id,msg_id, '  صح عليك !  \n عدد الثواني ( '..timemkal..' )\n✧')
+elseif tonumber(timemkal) == 6 then
+send(msg_chat_id,msg_id,'   صحيح !  \n عدد الثواني ( '..timemkal..' )\n✧')
+elseif tonumber(timemkal) == 7 then
+send(msg_chat_id,msg_id,'   شد حيلك ! \n عدد الثواني ( '..timemkal..' )\n✧')
+elseif tonumber(timemkal) == 8 then
+send(msg_chat_id,msg_id, '  عندك اسرع ! \n عدد الثواني ( '..timemkal..' )\n✧')
+elseif tonumber(timemkal) == 9 then
+send(msg_chat_id,msg_id,'   يجي ! \n عدد الثواني ( '..timemkal..' )\n✧')
+elseif tonumber(timemkal) == 10 then
+send(msg_chat_id,msg_id,'   كفو ! \n عدد الثواني ( '..timemkal..' )\n✧')
+elseif tonumber(timemkal) == 11 then
+send(msg_chat_id,msg_id,'   ماش !  \n عدد الثواني ( '..timemkal..' )\n✧')
+elseif tonumber(timemkal) == 12 then
+send(msg_chat_id,msg_id,'   مستوى مستوى !  \n عدد الثواني ( '..timemkal..' )\n✧')
+elseif tonumber(timemkal) == 13 then
+send(msg_chat_id,msg_id,'   تدرب ! \n عدد الثواني ( '..timemkal..' )\n✧')
+elseif tonumber(timemkal) == 14 then
+send(msg_chat_id,msg_id,'   مدري وش اقول ! \n عدد الثواني ( '..timemkal..' )\n✧')
+elseif tonumber(timemkal) == 15 then
+send(msg_chat_id,msg_id,'   بطه ! \n عدد الثواني ( '..timemkal..' )\n✧')
+elseif tonumber(timemkal) == 16 then
+send(msg_chat_id,msg_id,'   ي بطوط !  \n عدد الثواني ( '..timemkal..' )\n✧')
+elseif tonumber(timemkal) == 17 then
+send(msg_chat_id,msg_id,'   مافي اسرع  !  \n عدد الثواني ( '..timemkal..' )\n✧')
+elseif tonumber(timemkal) == 18 then
+send(msg_chat_id,msg_id,'   بكير  !  \n عدد الثواني ( '..timemkal..' )\n✧')
+elseif tonumber(timemkal) == 19 then
+send(msg_chat_id,msg_id,'   وش هذا !  \n عدد الثواني ( '..timemkal..' )\n✧')
+elseif tonumber(timemkal) == 20 then
+send(msg_chat_id,msg_id,'   الله يعينك !  \n عدد الثواني ( '..timemkal..' )\n✧')
+elseif tonumber(timemkal) == 21 then
+send(msg_chat_id,msg_id,'   كيبوردك يعلق ههههه  !  \n عدد الثواني ( '..timemkal..' )\n✧')
+elseif tonumber(timemkal) == 22 then
+send(msg_chat_id,msg_id,'   يبي لك تدريب  !  \n عدد الثواني ( '..timemkal..' )\n✧')
+elseif tonumber(timemkal) == 23 then
+send(msg_chat_id,msg_id,'   انت اخر واحد رسلت وش ذا !  \n عدد الثواني ( '..timemkal..' )\n✧')
+elseif tonumber(timemkal) == 24 then
+send(msg_chat_id,msg_id,'   ههههه بطى !  \n عدد الثواني ( '..timemkal..' )\n✧')
+elseif tonumber(timemkal) == 25 then
+send(msg_chat_id,msg_id,'   ابك وش العلم !  \n عدد الثواني ( '..timemkal..' )\n✧')
+elseif tonumber(timemkal) == 26 then
+send(msg_chat_id,msg_id,'  اخر مرا تلعب !  \n عدد الثواني ( '..timemkal..' )\n✧')
+elseif tonumber(timemkal) == 27 then
+send(msg_chat_id,msg_id,'   ي بطيء !  \n عدد الثواني ( '..timemkal..' )\n✧')
+elseif tonumber(timemkal) == 28 then
+send(msg_chat_id,msg_id,'   ليه انت بطيء يخوي !  \n عدد الثواني ( '..timemkal..' )\n✧')
+elseif tonumber(timemkal) == 29 then
+send(msg_chat_id,msg_id,'   تدبر زين بس  !  \n عدد الثواني ( '..timemkal..' )\n✧')
+elseif tonumber(timemkal) == 30 then
+send(msg_chat_id,msg_id,'  مستوى بس !  \n عدد الثواني ( '..timemkal..' )\n✧')
+end
+Redis:del(Fast.."makal:bots:qus"..msg.sender_id.user_id..":"..msg.chat_id)
+Redis:del(Fast.."mkal:setex:" .. msg.chat_id .. ":" .. msg.sender_id.user_id) 
+end
 if text == "كليشة" or text == "كليشه رد" or text == "كليشه" then 
 local texting = {
  "᥀ 𓏺 ﾋꫀ †: @ \n᥀ 𓏺 𝗎᥉ †: @#username .𓀀\n᥀ 𓏺 σ †: #name.𓀀",
@@ -32,6 +311,66 @@ local texting = {
 "⌯ 𝗍𝖾𝗅𝖾. @\n⌯ 𝗎𝗌𝖾𝗋. @#username  \n⌯ 𝗇𝖺𝗆𝖾. #name",
 } 
 return bot.sendText(msg_chat_id,msg_id,texting[math.random(#texting)],'md')
+end
+if text == ("مسح الفويسات") or text == ("مسح البصمات") or text == ("تنظيف الفويسات") or text == ("تنظيف البصمات") then
+if not msg.Manger then
+return send(msg.chat_id,msg.id,"• هذا الأمر يخص المدير")
+end
+local list = Redis:smembers(Fast.."Fast:all:voice"..msg.chat_id)
+for k,v in pairs(list) do
+local Message = v
+if Message then
+t = "⇜ ابشر مسحت ( "..k.." ) من الفويسات"
+bot.deleteMessages(msg.chat_id,{[1]= Message})
+Redis:del(Fast.."Fast:all:voice"..msg.chat_id)
+end
+end
+if #list == 0 then
+t = "⇜ لا يوجد فويسات في القروب"
+end
+local UserInfo = bot.getUser(msg.sender_id.user_id)
+local Teext = '⇜ من ['..UserInfo.first_name..'](tg://user?id='..msg.sender_id.user_id..')\n'
+send(msg.chat_id,msg.id, Teext..t,"md",true)
+end
+if text == ("مسح الصور") or text == ("مسح صور") or text == ("تنظيف الصور") or text == ("تنظيف صور") then
+if not msg.Manger then
+return send(msg.chat_id,msg.id,"• هذا الأمر يخص المدير")
+end
+local list = Redis:smembers(Fast.."Fast:all:photo"..msg.chat_id)
+for k,v in pairs(list) do
+local Message = v
+if Message then
+t = "⇜ ابشر مسحت ( "..k.." ) من الصور"
+bot.deleteMessages(msg.chat_id,{[1]= Message})
+Redis:del(Fast.."Fast:all:photo"..msg.chat_id)
+end
+end
+if #list == 0 then
+t = "⇜ لا يوجد صور في القروب"
+end
+local UserInfo = bot.getUser(msg.sender_id.user_id)
+local Teext = '⇜ من ['..UserInfo.first_name..'](tg://user?id='..msg.sender_id.user_id..')\n'
+send(msg.chat_id,msg.id, Teext..t,"md",true)
+end
+if text == ("مسح القيفات") or text == ("مسح المتحركات") or text == ("تنظيف القيفات") or text == ("تنظيف المتحركات") or text == ("مسح متحركات") or text == ("مسح المتحركة") or text == ("مسح المتحركه") then
+if not msg.Manger then
+return send(msg.chat_id,msg.id,"• هذا الأمر يخص المدير")
+end
+local list = Redis:smembers(Fast.."Fast:all:anim"..msg.chat_id)
+for k,v in pairs(list) do
+local Message = v
+if Message then
+t = "⇜ ابشر مسحت ( "..k.." ) من القيفات"
+bot.deleteMessages(msg.chat_id,{[1]= Message})
+Redis:del(Fast.."Fast:all:anim"..msg.chat_id)
+end
+end
+if #list == 0 then
+t = "⇜ لا يوجد قيفات في القروب"
+end
+local UserInfo = bot.getUser(msg.sender_id.user_id)
+local Teext = '⇜ من ['..UserInfo.first_name..'](tg://user?id='..msg.sender_id.user_id..')\n'
+send(msg.chat_id,msg.id, Teext..t,"md",true)
 end
  if Redis:get(Fast.."addchannel"..msg.sender_id.user_id) == "on" then
 if text and text:match("^@[%a%d_]+$") then
