@@ -387,16 +387,26 @@ Redis:del(Fast.."knele"..msg.chat_id)
 send(msg_chat_id,msg_id, '↯︙ تم تفعيل امر غنيلي\n√',"md")
 end
 end
-
-if text and (text == "غنيلي" or text == "↫ غنيلي ✯") and not Redis:get(Fast..'sh3ir:Abs'..msg.chat_id) then
+if text == "غنيلي" or text == "غني" then 
+if ChannelJoinch(msg) == false then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = Redis:get(Fast..'Chat:Channel:Join:Name'..msg.chat_id), url = 't.me/'..Redis:get(Fast..'Chat:Channel:Join'..msg.chat_id)}, },}}
+return send(msg.chat_id,msg.id,'*\n↯︙ عليك الاشتراك في قناة البوت لأستخدام الاوامر*',"md",false, false, false, false, reply_markup)
+end
+if ChannelJoin(msg) == false then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = Redis:get(Fast..'Channel:Join:Name'), url = 't.me/'..Redis:get(Fast..'Channel:Join')}, },}}
+return send(msg.chat_id,msg.id,'*\n↯︙ عليك الاشتراك في قناة البوت لأستخدام الاوامر*',"md",false, false, false, false, reply_markup)
+end
+if not Redis:get(Fast.."knele"..msg.chat_id) then
 Abs = math.random(2,140); 
-local Text ='*↯︙ تم اختيار اغنيه لك*'
+local Text ='*↯︙ تم اختيار الاغنيه لك*'
 keyboard = {} 
 keyboard.inline_keyboard = {
-{{text = '- 𝖳𝖾𝖺𝗆 𝖡𝖱𝗈k𝖲. ',url="t.me/"..chsource..""}},
+{{text = '- 𝖳𝖾𝖺𝗆 𝖡𝖱𝗈k𝖲.',url="t.me/"..chsource..""}},
 }
-local msg_id = msg.id/2097152/0.5
-https.request("https://api.telegram.org/bot"..Token..'/sendVoice?chat_id=' .. msg.chat_id .. '&voice=https://t.me/XX_kato/'..Abs..'&caption=' .. URL.escape(Text).."&reply_to_message_id="..msg_id.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(keyboard)) 
+local MsgId = msg.id/2097152/0.5
+local MSGID = msg.id/2097152/0.5
+https.request("https://api.telegram.org/bot"..Token..'/sendVoice?chat_id=' .. msg.chat_id .. '&voice=https://t.me/TEAMSUL/'..Abs..'&caption=' .. URL.escape(Text).."&reply_to_message_id="..MSGID.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(keyboard)) 
+end
 end
 if text and text:match("^معنى (.*)$") then 
 local TextMean = text:match("^معنى (.*)$") or text:match("^معنى اسم (.*)$") 
