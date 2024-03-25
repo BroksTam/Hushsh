@@ -16,9 +16,77 @@ if neww then
 text = neww or text
 end
 end
-
-
-
+if text and text:match('^ضع تفاعل (%d+) (.*)$') or text and text:match('^وضع تفاعل (%d+) (.*)$') then
+if not msg.Manger then
+return send(msg.chat_id,msg.id,"↯︙ هذا الأمر يخص المدير")
+end
+local msgcountneed = {text:match('^ضع تفاعل (%d+) (.*)$') } or {text:match('^وضع تفاعل (%d+) (.*)$') }
+if tonumber(msgcountneed[1]:match('(%d+)')) <= 999 then
+return send(msg_chat_id,msg_id,'\n• عذراً يجب ان تكون عدد الرسائل اكثر من 1000 ',"md",true)
+end
+if tonumber(msgcountneed[1]:match('(%d+)')) == tonumber(Redis:get(Fast.."rtpamalekassmsg"..msg.chat_id)) then
+Redis:del(Fast.."rtpamalekass"..msg.chat_id)
+Redis:del(Fast.."rtpamalekassmsg"..msg.chat_id)
+elseif tonumber(msgcountneed[1]:match('(%d+)')) == tonumber(Redis:get(Fast.."rtpamalekmsg"..msg.chat_id)) then
+Redis:del(Fast.."rtpamalek"..msg.chat_id)
+Redis:del(Fast.."rtpamalekmsg"..msg.chat_id)
+elseif tonumber(msgcountneed[1]:match('(%d+)')) == tonumber(Redis:get(Fast.."rtpamonsheassmsg"..msg.chat_id)) then
+Redis:del(Fast.."rtpamonsheass"..msg.chat_id)
+Redis:del(Fast.."rtpamonsheassmsg"..msg.chat_id)
+elseif tonumber(msgcountneed[1]:match('(%d+)')) == tonumber(Redis:get(Fast.."rtpamonshemsg"..msg.chat_id)) then
+Redis:del(Fast.."rtpamonsge"..msg.chat_id)
+Redis:del(Fast.."rtpamonshemsg"..msg.chat_id)
+elseif tonumber(msgcountneed[1]:match('(%d+)')) == tonumber(Redis:get(Fast.."rtpamanagermsg"..msg.chat_id)) then
+Redis:del(Fast.."rtpamanager"..msg.chat_id)
+Redis:del(Fast.."rtpamanagermsg"..msg.chat_id)
+elseif tonumber(msgcountneed[1]:match('(%d+)')) == tonumber(Redis:get(Fast.."rtpaadminmsg"..msg.chat_id)) then
+Redis:del(Fast.."rtpaadmin"..msg.chat_id)
+Redis:del(Fast.."rtpaadminmsg"..msg.chat_id)
+elseif tonumber(msgcountneed[1]:match('(%d+)')) == tonumber(Redis:get(Fast.."rtpaspecialmsg"..msg.chat_id)) then
+Redis:del(Fast.."rtpaspecial"..msg.chat_id)
+Redis:del(Fast.."rtpaspecialmsg"..msg.chat_id)
+end
+if msgcountneed[2] == "مالك اساسي" or msgcountneed[2] == "مالك الاساسي" or msgcountneed[2] == "المالك الاساسي" then
+local StatusMember = bot.getChatMember(msg_chat_id,msg.sender_id.user_id).status.luatele
+if (StatusMember == "chatMemberStatusCreator") then
+statusvar = true
+else
+statusvar = false
+end
+if not msg.Manger then
+return send(msg.chat_id,msg.id,"↯︙ هذا الأمر يخص المدير")
+end
+Redis:set(Fast.."rtpamalekass"..msg.chat_id,msgcountneed[2])
+Redis:set(Fast.."rtpamalekassmsg"..msg.chat_id,tonumber(msgcountneed[1]:match('(%d+)')))
+send(msg_chat_id,msg_id,'\n⇜ تم وضع التفاعل بنجاح\n⇜ عدد الرسائل : '..msgcountneed[1]:match('(%d+)')..'\n⇜ الرتبه : مالك اساسي\n\n- سيتم رفع الرتبه تلقائي\n✧',"md")
+elseif msgcountneed[2] == "مالك" or msgcountneed[2] == "المالك" then
+Redis:set(Fast.."rtpamalek"..msg.chat_id,msgcountneed[2])
+Redis:set(Fast.."rtpamalekmsg"..msg.chat_id,tonumber(msgcountneed[1]:match('(%d+)')))
+send(msg_chat_id,msg_id,'\n⇜ تم وضع التفاعل بنجاح\n⇜ عدد الرسائل : '..msgcountneed[1]:match('(%d+)')..'\n⇜ الرتبه : مالك\n\n- سيتم رفع الرتبه تلقائي\n✧',"md")
+elseif msgcountneed[2] == "منشئ اساسي" or msgcountneed[2] == "منشئ الاساسي" or msgcountneed[2] == "المنشئ الاساسي" then
+Redis:set(Fast.."rtpamonsheass"..msg.chat_id,msgcountneed[2])
+Redis:set(Fast.."rtpamonsheassmsg"..msg.chat_id,tonumber(msgcountneed[1]:match('(%d+)')))
+send(msg_chat_id,msg_id,'\n⇜ تم وضع التفاعل بنجاح\n⇜ عدد الرسائل : '..msgcountneed[1]:match('(%d+)')..'\n⇜ الرتبه : منشئ اساسي\n\n- سيتم رفع الرتبه تلقائي\n✧',"md")
+elseif msgcountneed[2] == "منشئ" or msgcountneed[2] == "المنشئ" then
+Redis:set(Fast.."rtpamonsge"..msg.chat_id,msgcountneed[2])
+Redis:set(Fast.."rtpamonshemsg"..msg.chat_id,tonumber(msgcountneed[1]:match('(%d+)')))
+send(msg_chat_id,msg_id,'\n⇜ تم وضع التفاعل بنجاح\n⇜ عدد الرسائل : '..msgcountneed[1]:match('(%d+)')..'\n⇜ الرتبه : منشئ\n\n- سيتم رفع الرتبه تلقائي\n✧',"md")
+elseif msgcountneed[2] == "مدير" or msgcountneed[2] == "المدير" then
+Redis:set(Fast.."rtpamanager"..msg.chat_id,msgcountneed[2])
+Redis:set(Fast.."rtpamanagermsg"..msg.chat_id,tonumber(msgcountneed[1]:match('(%d+)')))
+send(msg_chat_id,msg_id,'\n⇜ تم وضع التفاعل بنجاح\n⇜ عدد الرسائل : '..msgcountneed[1]:match('(%d+)')..'\n⇜ الرتبه : مدير\n\n- سيتم رفع الرتبه تلقائي\n✧',"md")
+elseif msgcountneed[2] == "ادمن" or msgcountneed[2] == "الادمن" then
+Redis:set(Fast.."rtpaadmin"..msg.chat_id,msgcountneed[2])
+Redis:set(Fast.."rtpaadminmsg"..msg.chat_id,tonumber(msgcountneed[1]:match('(%d+)')))
+send(msg_chat_id,msg_id,'\n⇜ تم وضع التفاعل بنجاح\n⇜ عدد الرسائل : '..msgcountneed[1]:match('(%d+)')..'\n⇜ الرتبه : ادمن\n\n- سيتم رفع الرتبه تلقائي\n✧',"md")
+elseif msgcountneed[2] == "مميز" or msgcountneed[2] == "المميز" then
+Redis:set(Fast.."rtpaspecial"..msg.chat_id,msgcountneed[2])
+Redis:set(Fast.."rtpaspecialmsg"..msg.chat_id,tonumber(msgcountneed[1]:match('(%d+)')))
+send(msg_chat_id,msg_id,'\n⇜ تم وضع التفاعل بنجاح\n⇜ عدد الرسائل : '..msgcountneed[1]:match('(%d+)')..'\n⇜ الرتبه : مميز\n\n- سيتم رفع الرتبه تلقائي\n✧',"md")
+else
+return send(msg_chat_id,msg_id,'\n⇜ مافي رتبة بالاسم هذا ',"md")
+end
+end
 if text == "كليشة" or text == "كليشه رد" or text == "كليشه" then 
 local texting = {
  "᥀ 𓏺 ﾋꫀ †: @ \n᥀ 𓏺 𝗎᥉ †: @#username .𓀀\n᥀ 𓏺 σ †: #name.𓀀",
