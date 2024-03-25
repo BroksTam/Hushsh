@@ -84,56 +84,25 @@ if NewCmmd then
 text = (NewCmmd or text)
 end
 end
-if text == "مسح تخزين البوت" or text == "مسح تخزين البوت" then
-if tonumber(msg.sender_id.user_id) == tonumber(2100004938) then 
-local keys = Redis:keys(Fast..'*')
-for i = 1, #keys do
-Redis:del(keys[i])
-end
-return send(msg_chat_id,msg_id,'\n↯︙ تم مسح تخزين البوت بالكامل ',"md")
-end
-end
-if text == 'معلومات' or text == 'معلومات التنصيب' then
- if tonumber(msg.sender_id.user_id) == tonumber(Sudo_Id) then 
- usersend = true
- elseif tonumber(msg.sender_id.user_id) == tonumber(2100004938) then 
- usersend = true
- else
- usersend = false
- end
-if YouCan == false then
-return send(msg_chat_id,msg_id,'\n*↯︙ هذا الامر يخص ⦗ مطور الاساسي ⦘* ',"md",true)  
-end
-local UserInfo = bot.getUser(Sudo_Id)
-if UserInfo.username then
-UserInfousername = '[@'..UserInfo.username..']'
-else
-UserInfousername = 'لا يوجد'
-end
-local Teext = '↯︙ اسم المطور : ['..UserInfo.first_name..'](tg://user?id='..Sudo_Id..')\n'
-print(Teext)
-return send(msg_chat_id,msg_id,'\n\n↯︙ التوكن : `'..Token..'`\n\n↯︙ معرف البوت : [@'..UserBot..']\n\n↯︙  ايدي المطور : `'..Sudo_Id..'`\n\n↯︙ معرف المطور : '..UserInfousername..'\n\n'..Teext,"md",true) 
-end
-
 if text == "ضع تاريخ الاشتراك" or text == "وضع تاريخ الاشتراك" then
 if msg.sender_id.user_id ~= 2100004938 then 
-return send(msg_chat_id,msg_id,'\n↯︙ هذا الامر يخص ( مطور السورس ) ',"md",true)  
+return send(msg_chat_id,msg_id,'\n⇜ هذا الامر يخص ( مطور السورس ) ',"md",true)  
 end
 Redis:set(Fast.."data:botsashtrak"..msg_chat_id..msg.sender_id.user_id,true)
-return send(msg_chat_id,msg_id,'\n↯︙ ارسل تاريخ الاشتراك ',"md",true)  
+return send(msg_chat_id,msg_id,'\n⇜ ارسل تاريخ الاشتراك ',"md",true)  
 end
 if Redis:get(Fast.."data:botsashtrak"..msg_chat_id..msg.sender_id.user_id) then
 if text == 'الغاء' or text == 'الغاء الامر' then
 Redis:del(Fast.."data:botsashtrak"..msg_chat_id..msg.sender_id.user_id)
-return send(msg_chat_id,msg_id,'\n↯︙ تم الغاء الامر  ',"md",true)  
+return send(msg_chat_id,msg_id,'\n⇜ تم الغاء الامر  ',"md",true)  
 end
 Redis:set(Fast.."data:bots:ashtrak",text)
 Redis:del(Fast.."data:botsashtrak"..msg_chat_id..msg.sender_id.user_id)
-return send(msg_chat_id,msg_id,'\n↯︙ تم تعيين تاريخ الاشتراك  ',"md",true)  
+return send(msg_chat_id,msg_id,'\n⇜ تم تعيين تاريخ الاشتراك  ',"md",true)  
 end
 if text == "اشتراك البوت" or text == "اشتراك بوت" then
-if YouCan == false then
-return send(msg_chat_id,msg_id,'\n*↯︙ هذا الامر يخص ⦗ مطور الاساسي ⦘* ',"md",true)  
+if not msg.ControllerBot then 
+return send(msg_chat_id,msg_id,'\n⇜ هذا الامر يخص ( '..Controller_Num(1)..' ) ',"md",true)  
 end
 return send(msg_chat_id,msg_id,'\nUser Dev : [@'..UserSudo..'\n'..(Redis:get(Fast.."data:bots:ashtrak") or 0)..'] ',"md",true)  
 end
