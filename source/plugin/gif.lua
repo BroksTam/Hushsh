@@ -16,10 +16,6 @@ if neww then
 text = neww or text
 end
 end
-if text == "تستي" then
-return send(msg_chat_id,msg_id,'\n↯︙ هذا الامر يخص ( '..msg_id..' ) ',"md",true)  
-end
-
 if text and text:match("^حظر قناة @(%S+)$") or text and text:match("^حظر قناه @(%S+)$") then
 local User = text:match("^حظر قناة @(%S+)$") or text:match("^حظر قناه @(%S+)$")
 if not msg.Manger then
