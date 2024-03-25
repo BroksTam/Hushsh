@@ -235,7 +235,7 @@ elseif Redis:get(Fast.."rtpaadminmsg"..msg.chat_id) == nummaguser then
 Redis:sadd(Fast.."Fast:Addictive:Group"..msg_chat_id,msg.sender_id.user_id) 
 send(msg_chat_id,msg_id,"\n⇜ مبروك ياحلو ↤︎ "..namee.."\n⇜ وصل تفاعلك الى : "..math.floor(nummaguser).." رسالة\n⇜ حصلت على رتبة : "..Redis:get(Fast.."rtpaadmin"..msg.chat_id).."\n✧","md")
 elseif Redis:get(Fast.."rtpaspecialmsg"..msg.chat_id) == nummaguser then
-Redis:sadd(Fast.."Fast.."Special:Group"..msg_chat_id,msg.sender_id.user_id) 
+Redis:sadd(Fast.."Fast:Distinguished:Group"..msg_chat_id,msg.sender_id.user_id) 
 send(msg_chat_id,msg_id,"\n⇜ مبروك ياحلو ↤︎ "..namee.."\n⇜ وصل تفاعلك الى : "..math.floor(nummaguser).." رسالة\n⇜ حصلت على رتبة : "..Redis:get(Fast.."rtpaspecial"..msg.chat_id).."\n✧","md")
 end
 end
