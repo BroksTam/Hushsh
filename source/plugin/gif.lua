@@ -17,9 +17,7 @@ text = neww or text
 end
 end
 
-if text == "تستي" then
-return send(msg_chat_id,msg_id,'\n⇜ هذا الامر يخص ( '..msg_id..' ) ',"md",true)  
-end
+
 if text == 'تاك ايموجي' or text == 'منشن ايموجي' then
 if not msg.Manger then
 return send(msg.chat_id,msg.id,"• هذا الأمر يخص المدير")
