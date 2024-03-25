@@ -37,44 +37,7 @@ return bot.sendText(msg_chat_id,msg_id,texting[math.random(#texting)],'md')
 end
 
 
-if text == "ترند القروبات" or text == "ترند المجموعات" then
-if not msg.Manger then
-return send(msg.chat_id,msg.id,"• هذا الأمر يخص المدير")
-end
-GroupAllRtba = Redis:hgetall(Fast..':GroupUserCountMsg:groups')
-GetAllNames  = Redis:hgetall(Fast..':GroupNameUser:groups')
-GroupAllRtbaL = {}
-for k,v in pairs(GroupAllRtba) do table.insert(GroupAllRtbaL,{v,k}) end
-Count,Kount,i = 8 , 0 , 1
-for _ in pairs(GroupAllRtbaL) do Kount = Kount + 1 end
-table.sort(GroupAllRtbaL, function(a, b) return tonumber(a[1]) > tonumber(b[1]) end)
-if Count >= Kount then Count = Kount end
-Text = "↯︙ قائمه ترند الكروبات 📊 . \n┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉
-\n"
-for k,v in pairs(GroupAllRtbaL) do
-if v[2] and v[2]:match("(-100%d+)") then
-local InfoChat = bot.getChat(v[2])
-local InfoChats = bot.getSupergroupFullInfo(v[2])
-if InfoChats.code ~= 400 then
-var(InfoChats.invite_link)
-if not InfoChats.invite_link then
-linkedid = "["..InfoChat.title.."]" or "اسم القروب خطأ"
-else
-linkedid = "["..InfoChat.title.."]" or "اسم القروب خطأ"
-end
-if i <= Count then  
-Text = Text..i.."- "..v[1].." | "..(linkedid).." \n" 
-end ; 
-i=i+1
-end
-end
-end
-return send(msg.chat_id,msg.id,Text,"md",true)
-end
-if text and msg.chat_id then
-local GetMsg = Redis:incr(Fast..'Fast:MsgNumbergroups'..msg.chat_id) or 1
-Redis:hset(Fast..':GroupUserCountMsg:groups',msg.chat_id,GetMsg)
-end
+
  if text == "تنظيف التعديل" or text == "مسح التعديل" or text == "امسحح" then
 if not msg.Manger then
 return send(msg.chat_id,msg.id,"↯︙ هذا الأمر يخص المدير")
