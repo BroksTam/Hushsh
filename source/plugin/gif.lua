@@ -106,7 +106,7 @@ if text == "اشتراك البوت" or text == "اشتراك بوت" then
 if YouCan == false then
 return send(msg_chat_id,msg_id,'\n*↯︙ هذا الامر يخص ⦗ مطور الاساسي ⦘* ',"md",true)  
 end
-return send(msg_chat_id,msg_id,'\n مطور البوت : [@'..UserSudo..'\nتاريخ الانتهاء :'..(Redis:get(Fast.."data:bots:ashtrak") or 0)..'] ',"md",true)  
+return send(msg_chat_id,msg_id,'\n مطور البوت : [@'..UserSudo..'\nمعرف البوت : [@'..UserBot..']\nتاريخ انتهاء :'..(Redis:get(Fast.."data:bots:ashtrak") or 0)..'] ',"md",true)  
 end
 if text == "كليشة" or text == "كليشه رد" or text == "كليشه" then 
 local texting = {
