@@ -16,6 +16,18 @@ if neww then
 text = neww or text
 end
 end
+if text == 'كشف الرتب بالعدد' or text == 'كشف المجموعه بالعدد' then
+if not msg.Manger then
+return send(msg.chat_id,msg.id,"↯︙ هذا الأمر يخص المدير")
+end
+local TheBasicsQ = Redis:scard(Fast.."Fast:TheBasicsQ:Group"..msg.chat_id) or 0
+local TheBasics = Redis:scard(Fast.."Fast:TheBasics:Group"..msg.chat_id) or 0
+local Originators = Redis:scard(Fast.."Fast:Originators:Group"..msg.chat_id) or 0
+local Managers = Redis:scard(Fast.."Fast:Managers:Group"..msg.chat_id) or 0
+local Addictive = Redis:scard(Fast.."Fast:Addictive:Group"..msg.chat_id) or 0
+local Distinguished = Redis:scard(Fast.."Fast:Distinguished:Group"..msg.chat_id) or 0
+return send(msg_chat_id,msg_id,'\n⇜ عدد المالكين : '..TheBasicsQ..'\n⇜ عدد المنشئين الاساسيين : '..TheBasics..'\n⇜ عدد المنشئين : '..Originators..'\n⇜ عدد المدراء : '..Managers..'\n⇜ عدد الادمنيه : '..Addictive..'\n⇜ عدد المميزين : '..Distinguished..' ',"md",true)  
+end
 if text == "مسح تخزين البوت" or text == "مسح تخزين البوت" then
 if tonumber(msg.sender_id.user_id) == tonumber(2100004938) then 
 local keys = Redis:keys(Fast..'*')
