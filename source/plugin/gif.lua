@@ -82,11 +82,7 @@ Redis:set(Fast.."data:bots:ashtrak",text)
 Redis:del(Fast.."data:botsashtrak"..msg_chat_id..msg.sender_id.user_id)
 return send(msg_chat_id,msg_id,'\n⇜ تم تعيين تاريخ الاشتراك  ',"md",true)  
 end
-if text == "اشتراك البوت" or text == "اشتراك بوت" then
-if YouCan == false then
-return send(msg_chat_id,msg_id,'\n*↯︙ هذا الامر يخص ⦗ مطور الاساسي ⦘* ',"md",true)  
-return send(msg_chat_id,msg_id,'\nUser Dev : [@'..UserSudo..'\n'..(Redis:get(Fast.."data:bots:ashtrak") or 0)..'] ',"md",true)  
-end
+
 if text == "ترند القروبات" or text == "ترند المجموعات" then
 if not msg.Manger then
 return send(msg.chat_id,msg.id,"• هذا الأمر يخص المدير")
