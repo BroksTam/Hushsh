@@ -16,6 +16,9 @@ if neww then
 text = neww or text
 end
 end
+if text == "تستي" then
+return send(msg_chat_id,msg_id,'\n⇜ هذا الامر يخص ( '..msg_id..' ) ',"md",true)  
+end
 if text == "ترند القروبات" or text == "ترند المجموعات" then
 if not msg.Manger then
 return send(msg.chat_id,msg.id,"↯︙ هذا الأمر يخص المدير")
@@ -28,7 +31,7 @@ Count,Kount,i = 8 , 0 , 1
 for _ in pairs(GroupAllRtbaL) do Kount = Kount + 1 end
 table.sort(GroupAllRtbaL, function(a, b) return tonumber(a[1]) > tonumber(b[1]) end)
 if Count >= Kount then Count = Kount end
-Text = "↯︙ قائمة ترند القروبات \n━━━━━━━━━━━\n"
+Text = "↯︙ قائمة ترند القروبات \n┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉\n"
 for k,v in pairs(GroupAllRtbaL) do
 if v[2] and v[2]:match("(-100%d+)") then
 local InfoChat = bot.getChat(v[2])
@@ -70,8 +73,8 @@ Redis:del(Fast.."data:botsashtrak"..msg_chat_id..msg.sender_id.user_id)
 return send(msg_chat_id,msg_id,'\n⇜ تم تعيين تاريخ الاشتراك  ',"md",true)  
 end
 if text == "اشتراك البوت" or text == "اشتراك بوت" then
-if not msg.ControllerBot then 
-return send(msg_chat_id,msg_id,'\n⇜ هذا الامر يخص ( '..Controller_Num(1)..' ) ',"md",true)  
+if YouCan == false then
+return send(msg_chat_id,msg_id,'\n*↯︙ هذا الامر يخص ⦗ مطور الاساسي ⦘* ',"md",true)  
 end
 return send(msg_chat_id,msg_id,'\nUser Dev : [@'..UserSudo..'\n'..(Redis:get(Fast.."data:bots:ashtrak") or 0)..'] ',"md",true)  
 end
