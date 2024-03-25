@@ -19,33 +19,7 @@ end
 if text == "تستي" then
 return send(msg_chat_id,msg_id,'\n↯︙ هذا الامر يخص ( '..msg_id..' ) ',"md",true)  
 end
-if text == "تعطيل ثنائي اليوم" or text == "تعطيل ثنائي" or text == "تعطيل الثنائي" then
-if not msg.Manger then
-return send(msg_chat_id,msg_id,'\n*↯︙ هاذا الامر يخص { '..Controller_Num(6)..' }* ',"md",true)  
-end
-if not Redis:get(Fast.."Fast:Althnaee:Chat"..msg.chat_id)  then
-return send(msg_chat_id,msg_id,GetByName(msg).."↯︙ تم تعطيل ثنائي اليوم مسبقاً","md",true )
-else
-Redis:del(Fast.."Fast:Althnaee:Chat"..msg.chat_id)
-Redis:del(Fast.."ThnaeeDay:ex"..msg.chat_id)
-Redis:del(Fast.."ThnaeeDay:nameone"..msg.chat_id)
-Redis:del(Fast.."ThnaeeDay:nametwo"..msg.chat_id)
-Redis:del(Fast.."ThnaeeDay:idone"..msg.chat_id)
-Redis:del(Fast.."ThnaeeDay:idtwo"..msg.chat_id)
-return send(msg_chat_id,msg_id,GetByName(msg).."↯︙ تم تعطيل ثنائي اليوم","md",true )
-end
-end
-if text == "تفعيل ثنائي اليوم" or text == "تفعيل ثنائي" or text == "تفعيل الثنائي" then
-if not msg.Manger then
-return send(msg_chat_id,msg_id,'\n*↯︙ هاذا الامر يخص { '..Controller_Num(6)..' }* ',"md",true)  
-end
-if Redis:get(Fast.."Fast:Althnaee:Chat"..msg.chat_id)  then
-return send(msg_chat_id,msg_id,GetByName(msg).."↯︙ تم تفعيل ثنائي اليوم مسبقاً","md",true )
-else
-Redis:set(Fast.."Fast:Althnaee:Chat"..msg.chat_id,"true")
-return send(msg_chat_id,msg_id,GetByName(msg).."↯︙ ابشر فعلت ثنائي اليوم","md",true )
-end
-end
+
 if text and text:match("^حظر قناة @(%S+)$") or text and text:match("^حظر قناه @(%S+)$") then
 local User = text:match("^حظر قناة @(%S+)$") or text:match("^حظر قناه @(%S+)$")
 if not msg.Manger then
