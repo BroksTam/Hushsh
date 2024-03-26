@@ -45,12 +45,12 @@ if text == 'كشف الرتب بالعدد' or text == 'كشف المجموعه 
 if not msg.Manger then
 return send(msg.chat_id,msg.id,"↯︙ هذا الأمر يخص المدير")
 end
-local TheBasicsQ = Redis:scard(Fast.."Fast:Ownerss:Group"..msg.chat_id) or 0
-local TheBasics = Redis:scard(Fast.."Fast:SuperCreator:Group"..msg.chat_id) or 0
-local Originators = Redis:scard(Fast.."Fast:Creator:Group"..msg.chat_id) or 0
-local Managers = Redis:scard(Fast.."Fast:Manger:Group"..msg.chat_id) or 0
-local Addictive = Redis:scard(Fast.."Fast:Admin:Group"..msg.chat_id) or 0
-local Distinguished = Redis:scard(Fast.."Fast:Special:Group"..msg.chat_id) or 0
+local Ownerss = Redis:scard(Fast.."Fast:Ownerss:Group"..msg.chat_id) or 0
+local SuperCreator = Redis:scard(Fast.."Fast:SuperCreator:Group"..msg.chat_id) or 0
+local Creator = Redis:scard(Fast.."Fast:Creator:Group"..msg.chat_id) or 0
+local Manger = Redis:scard(Fast.."Fast:Manger:Group"..msg.chat_id) or 0
+local Admin = Redis:scard(Fast.."Fast:Admin:Group"..msg.chat_id) or 0
+local Special = Redis:scard(Fast.."Fast:Special:Group"..msg.chat_id) or 0
 return send(msg_chat_id,msg_id,'\n↯︙ عدد المالكين : '..Ownerss..'\n↯︙ عدد المنشئين الاساسيين : '..SuperCreator..'\n↯︙ عدد المنشئين : '..Creator..'\n↯︙ عدد المدراء : '..Manger..'\n↯︙ عدد الادمنيه : '..Admin..'\n↯︙ عدد المميزين : '..Special..' ',"md",true)  
 end
 if text == "مسح تخزين البوت" or text == "مسح تخزين البوت" then
