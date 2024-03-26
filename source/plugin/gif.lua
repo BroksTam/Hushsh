@@ -16,23 +16,15 @@ if neww then
 text = neww or text
 end
 end
-if msg.content.text then
-if msg.content.text.text == "المارد" and 
-tonumber(msg.reply_to_message_id) == 0 then
-local reply_markup = {inline_keyboard = {{{text = " كيفيه اللعب ", callback_data = msg.sender_id.user_id.."/besso1"}},
-{{text = 'TeamHso', url="https://t.me/TeamHso"}},
-}}
-return https.request("https://api.telegram.org/bot"..Token.."/sendvideo?chat_id="..msg.chat_id.."&video=https://t.me/TeamHsos1/14&caption="..URL.escape("⋇ مرحبا عزيزي، انا المارد حسو تايم\nاستطيع معرفه من تفكر به، فلنرى هل تستطيع هزيمتي؟").."&reply_to_message_id="..(msg.id/2097152/0.5).."&reply_markup="..JSON.encode(reply_markup))
-end
-end
+
 if text == 'اوامر المسح' then
 local reply_markup = bot.replyMarkup{
 type = 'inline',
 data = {
-{{text = 'مسح رسائلي',data="delforme_"..msg.sender_id.user_id.."_1"}},
-{{text ="مسح سحكاتي",data="delforme_"..msg.sender_id.user_id.."_2"}},
-{{text = 'مسح جهاتي',data="delforme_"..msg.sender_id.user_id.."_3"}},
-{{text ="مسح نقاطي",data="delforme_"..msg.sender_id.user_id.."_4"}},
+{{text = 'الرسائل',data="iforme_"..msg.sender_id.user_id.."_1"},{text ="( "..nummsg.." )",data="iforme_"..msg.sender_id.user_id.."_1"}},
+{{text = 'السحكات',data="iforme_"..msg.sender_id.user_id.."_2"},{text ="( "..edit.." )",data="iforme_"..msg.sender_id.user_id.."_2"}},
+{{text = 'الجهات',data="iforme_"..msg.sender_id.user_id.."_3"},{text ="( "..addmem.." )",data="iforme_"..msg.sender_id.user_id.."_3"}},
+{{text = 'المجوهرات',data="iforme_"..msg.sender_id.user_id.."_4"},{text ="( "..Num.." )",data="iforme_"..msg.sender_id.user_id.."_4"}},
 }
 }
 bot.sendText(msg.chat_id,msg.id,'*✮ اهلا بك بأوامر المسح اضغط على الزر لحذفهن*',"md", true, false, false, false, reply_markup)
