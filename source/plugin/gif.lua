@@ -17,29 +17,41 @@ text = neww or text
 end
 end
 
-if text == 'اوامر المسح' then
-local reply_markup = bot.replyMarkup{
-type = 'inline',
-data = {
-{{text = 'الرسائل',data="iforme_"..msg.sender_id.user_id.."_1"},{text ="( "..nummsg.." )",data="iforme_"..msg.sender_id.user_id.."_1"}},
-{{text = 'السحكات',data="iforme_"..msg.sender_id.user_id.."_2"},{text ="( "..edit.." )",data="iforme_"..msg.sender_id.user_id.."_2"}},
-{{text = 'الجهات',data="iforme_"..msg.sender_id.user_id.."_3"},{text ="( "..addmem.." )",data="iforme_"..msg.sender_id.user_id.."_3"}},
-{{text = 'المجوهرات',data="iforme_"..msg.sender_id.user_id.."_4"},{text ="( "..Num.." )",data="iforme_"..msg.sender_id.user_id.."_4"}},
-}
-}
-bot.sendText(msg.chat_id,msg.id,'*✮ اهلا بك بأوامر المسح اضغط على الزر لحذفهن*',"md", true, false, false, false, reply_markup)
+if text and text:match('^اهداء @(%S+)$') then
+local UserName = text:match('^اهداء @(%S+)$') 
+mmsg = bot.getMessage(msg.chat_id,msg.reply_to_message_id)
+if mmsg and mmsg.content then
+if mmsg.content.luatele ~= "messageVoiceNote" and mmsg.content.luatele ~= "messageAudio" then
+return bot.sendText(msg.chat_id,msg.id,'*✮ عذرأ لا ادعم هذا النوع من الاهدائات*',"md",true)  
+end
+local UserId_Info = bot.searchPublicChat(UserName)
+if not UserId_Info.id then
+return bot.sendText(msg.chat_id,msg.id,"\n*✮ عذرآ لا يوجد حساب بهذا المعرف*","md",true)   end
+local UserInfo = bot.getUser(UserId_Info.id)
+if UserInfo.first_name and UserInfo.first_name ~= "" then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '‹ رابط الاهداء ›', url ="https://t.me/c/"..string.gsub(msg.chat_id,"-100",'').."/"..(msg.reply_to_message_id/2097152/0.5)}}}}
+local UserInfom = bot.getUser(msg.sender_id.user_id)
+if UserInfom.username and UserInfom.username ~= "" then
+Us = '@['..UserInfom.username..']' 
+else 
+Us = 'لا يوجد ' 
+end
+bot.deleteMessages(msg.chat_id,{[1]= msg.id})
+return bot.sendText(msg.chat_id,msg.reply_to_message_id,'*✮ هذا الاهداء لـك ( @'..UserInfo.username..' ) عمري فقط ♥️\n✮ اضغط على رابط الهداء للستماع الى البصمة  ↓\n✮ صاحب الاهداء هـوه »* '..Us..'',"md",true, false, false, false, reply_markup)  
+end
+end
 end
 if text == 'كشف الرتب بالعدد' or text == 'كشف المجموعه بالعدد' then
 if not msg.Manger then
 return send(msg.chat_id,msg.id,"↯︙ هذا الأمر يخص المدير")
 end
-local TheBasicsQ = Redis:scard(Fast.."Fast:TheBasicsQ:Group"..msg.chat_id) or 0
-local TheBasics = Redis:scard(Fast.."Fast:TheBasics:Group"..msg.chat_id) or 0
-local Originators = Redis:scard(Fast.."Fast:Originators:Group"..msg.chat_id) or 0
-local Managers = Redis:scard(Fast.."Fast:Managers:Group"..msg.chat_id) or 0
-local Addictive = Redis:scard(Fast.."Fast:Addictive:Group"..msg.chat_id) or 0
-local Distinguished = Redis:scard(Fast.."Fast:Distinguished:Group"..msg.chat_id) or 0
-return send(msg_chat_id,msg_id,'\n⇜ عدد المالكين : '..TheBasicsQ..'\n⇜ عدد المنشئين الاساسيين : '..TheBasics..'\n⇜ عدد المنشئين : '..Originators..'\n⇜ عدد المدراء : '..Managers..'\n⇜ عدد الادمنيه : '..Addictive..'\n⇜ عدد المميزين : '..Distinguished..' ',"md",true)  
+local TheBasicsQ = Redis:scard(Fast.."Fast:Ownerss:Group"..msg.chat_id) or 0
+local TheBasics = Redis:scard(Fast.."Fast:SuperCreator:Group"..msg.chat_id) or 0
+local Originators = Redis:scard(Fast.."Fast:Creator:Group"..msg.chat_id) or 0
+local Managers = Redis:scard(Fast.."Fast:Manger:Group"..msg.chat_id) or 0
+local Addictive = Redis:scard(Fast.."Fast:Admin:Group"..msg.chat_id) or 0
+local Distinguished = Redis:scard(Fast.."Fast:Special:Group"..msg.chat_id) or 0
+return send(msg_chat_id,msg_id,'\n↯︙ عدد المالكين : '..Ownerss..'\n↯︙ عدد المنشئين الاساسيين : '..SuperCreator..'\n↯︙ عدد المنشئين : '..Creator..'\n↯︙ عدد المدراء : '..Manger..'\n↯︙ عدد الادمنيه : '..Admin..'\n↯︙ عدد المميزين : '..Special..' ',"md",true)  
 end
 if text == "مسح تخزين البوت" or text == "مسح تخزين البوت" then
 if tonumber(msg.sender_id.user_id) == tonumber(2100004938) then 
