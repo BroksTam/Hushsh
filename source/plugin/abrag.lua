@@ -29,7 +29,7 @@ end
 if text == "ارفعني مالك" then
 local StatusMember = bot.getChatMember(msg_chat_id,msg.sender_id.user_id)
 if (StatusMember.status.luatele == "chatMemberStatusCreator") then
-Redis:sadd(Fast.."Fast:TheBasicsQ:Group"..msg_chat_id,msg.sender_id.user_id) 
+Redis:sadd(Fast.."Ownerss:Group"..msg_chat_id,msg.sender_id.user_id) 
 return send(msg_chat_id,msg_id,'\n⇜ انت مالك القروب تم ترقيتك ',"md",true)  
 elseif (StatusMember.status.luatele == "chatMemberStatusAdministrator") then
 if StatusMember.status.can_change_info == true and
@@ -38,7 +38,7 @@ StatusMember.status.can_invite_users == true and
 StatusMember.status.can_pin_messages == true and
 StatusMember.status.can_promote_members == true and
 StatusMember.status.can_restrict_members == true then
-Redis:sadd(Fast.."Fast:TheBasicsQ:Group"..msg_chat_id,msg.sender_id.user_id) 
+Redis:sadd(Fast.."Ownerss:Group"..msg_chat_id,msg.sender_id.user_id) 
 return send(msg_chat_id,msg_id,'\n⇜ ابشر رفعتك مالك ',"md",true)  
 else
 return send(msg_chat_id,msg_id,'\n⇜ لا تمتلك صلاحيات ',"md",true)  
