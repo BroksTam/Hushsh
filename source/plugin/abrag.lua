@@ -1,38 +1,4 @@
-function RunCallBack(data)
-if data and data.luatele and data.luatele == "updateChatMember" then
-UserCheck = data.new_chat_member.member_id.user_id
-local Result = bot.getUser(data.actor_user_id)
-if data.new_chat_member.status.luatele == "chatMemberStatusLeft" and data.old_chat_member.status.luatele == "chatMemberStatusCreator" then
-local Get_Chat = bot.getChat(data.chat_id)
-local Info_Chats = bot.getSupergroupFullInfo(data.chat_id)
-local UserInfo = bot.getUser(data.actor_user_id)
-send(data.actor_user_id,0,'\nليه تركت قروبك\nName ▸ ['..UserInfo.first_name..'](tg://user?id='..data.actor_user_id..')\nId ▸ '..data.actor_user_id..'\nTime ▸ '..os.date("%p %I:%M:%S")..'\nDate ▸ '..os.date("%Y/%m/%d")..'\nLink ▸ ['..Get_Chat.title..']('..Info_Chats.invite_link.invite_link..')',"md",true) 
-send(data.chat_id,0,'\nمالك القروب غادر 😨\nName ▸ ['..UserInfo.first_name..'](tg://user?id='..data.actor_user_id..')\nId ▸ '..data.actor_user_id..'\nTime ▸ '..os.date("%p %I:%M:%S")..'\nDate ▸ '..os.date("%Y/%m/%d")..'\n️',"md",true) 
-end
-if data.new_chat_member.status.luatele == "chatMemberStatusCreator" and data.old_chat_member.status.luatele == "chatMemberStatusLeft" then
-local UserInfo = bot.getUser(data.actor_user_id)
-send(data.chat_id,0,'\nالقروب مايسوى بدونك 😍 ( المالك )\nName ▸ ['..UserInfo.first_name..'](tg://user?id='..data.actor_user_id..')\nId ▸ '..data.actor_user_id..'\nTime ▸ '..os.date("%p %I:%M:%S")..'\nDate ▸ '..os.date("%Y/%m/%d")..'\n️',"md",true) 
-end
-if data.new_chat_member.status.luatele == "chatMemberStatusLeft" and data.old_chat_member.status.luatele == "chatMemberStatusAdministrator" then
-if data.actor_user_id == UserCheck and tonumber(Fast) ~= UserCheck then
-local Get_Chat = bot.getChat(data.chat_id)
-local Info_Chats = bot.getSupergroupFullInfo(data.chat_id)
-local UserInfo = bot.getUser(data.actor_user_id)
-send(data.actor_user_id,0,'\nليه تركت رتبتك ( مشرف ) وغادرت\nName ▸ ['..UserInfo.first_name..'](tg://user?id='..data.actor_user_id..')\nId ▸ '..data.actor_user_id..'\nTime ▸ '..os.date("%p %I:%M:%S")..'\nDate ▸ '..os.date("%Y/%m/%d")..'\nLink ▸ ['..Get_Chat.title..']('..Info_Chats.invite_link.invite_link..')\n️',"md",true) 
-send(data.chat_id,0,'\nمشرف غادر القروب 😞\nName ▸ ['..UserInfo.first_name..'](tg://user?id='..data.actor_user_id..')\nId ▸ '..data.actor_user_id..'\nTime ▸ '..os.date("%p %I:%M:%S")..'\nDate ▸ '..os.date("%Y/%m/%d")..'\n️',"md",true) 
-end
-end
-if data.new_chat_member.status.luatele == "chatMemberStatusLeft" and data.old_chat_member.status.luatele == "chatMemberStatusMember" then
-if not Redis:get(Fast.."gdbye"..data.chat_id) then
-if data.actor_user_id == UserCheck and tonumber(Fast) ~= UserCheck then
-local Get_Chat = bot.getChat(data.chat_id)
-local Info_Chats = bot.getSupergroupFullInfo(data.chat_id)
-local UserInfo = bot.getUser(data.actor_user_id)
-send(data.actor_user_id,0,'\nحي الله من زار وخفف\nName ▸ ['..UserInfo.first_name..'](tg://user?id='..data.actor_user_id..')\nId ▸ '..data.actor_user_id..'\nTime ▸ '..os.date("%p %I:%M:%S")..'\nDate ▸ '..os.date("%Y/%m/%d")..'\nLink ▸ ['..Get_Chat.title..']('..Info_Chats.invite_link.invite_link..')\n️',"md",true) 
-send(data.chat_id,0,'\nحي الله من زار وخفف\nName ▸ ['..UserInfo.first_name..'](tg://user?id='..data.actor_user_id..')\nId ▸ '..data.actor_user_id..'\nTime ▸ '..os.date("%p %I:%M:%S")..'\nDate ▸ '..os.date("%Y/%m/%d")..'\n️',"md",true) 
-end
-end
-end
+
 function abrag(msg)
 text = nil
 if msg and msg.content and msg.content.text then
