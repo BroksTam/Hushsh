@@ -48,6 +48,20 @@ else
 return send(msg_chat_id,msg_id,'\n⇜ انت عضو في القروب  ',"md",true)  
 end
 end
+if text == "تفعيل البلاغات" or text == "تفعيل بلاغات" then
+if not msg.Manger then
+return send(msg.chat_id,msg.id,"↯︙ هذا الامر يخص المدير")
+end
+send(msg_chat_id,msg_id,GetByName(msg).."⇜ تم تفعيل البلاغات","md",true )
+Redis:set(Fast.."rebomsg"..msg.chat_id,true)
+end
+if text == "تعطيل البلاغات" or text == "تعطيل بلاغات" then
+if not msg.Manger then
+return send(msg.chat_id,msg.id,"↯︙ هذا الامر يخص المدير")
+end
+send(msg_chat_id,msg_id,GetByName(msg).."⇜ تم تعطيل البلاغات","md",true )
+Redis:del(Fast.."rebomsg"..msg.chat_id)
+end
 if text == "تفعيل الابراج" then
 if not msg.Manger then
 return send(msg.chat_id,msg.id,"↯︙ هذا الامر يخص المدير")
