@@ -49,6 +49,7 @@ return send(msg_chat_id,msg_id,'\n⇜ انت عضو في القروب  ',"md",tr
 end
 end
 if text == 'ابلاغ' or text == 'بلاغ' or text == 'تبليغ' and tonumber(msg.reply_to_message_id) ~= 0 then
+if Redis:get(Fast.."rebomsg"..msg.chat_id) then
 local Remsg = bot.getMessage(msg.chat_id, msg.reply_to_message_id)
 local UserInfo = bot.getUser(Remsg.sender_id.user_id)
 if UserInfo and UserInfo.type and UserInfo.type.luatele == "userTypeBot" then
