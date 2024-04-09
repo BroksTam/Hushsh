@@ -48,66 +48,7 @@ else
 return send(msg_chat_id,msg_id,'\n⇜ انت عضو في القروب  ',"md",true)  
 end
 end
-if text == 'ابلاغ' or text == 'بلاغ' or text == 'تبليغ' and tonumber(msg.reply_to_message_id) ~= 0 then
-if Redis:get(Fast.."rebomsg"..msg.chat_id) then
-local Remsg = bot.getMessage(msg.chat_id, msg.reply_to_message_id)
-local UserInfo = bot.getUser(Remsg.sender_id.user_id)
-if UserInfo and UserInfo.type and UserInfo.type.luatele == "userTypeBot" then
-return false
-end
-if Remsg.sender_id.user_id == msg.sender_id.user_id then
-return false
-end
-Info_Members = bot.getSupergroupMembers(msg_chat_id, "Administrators", "*", 0, 200)
-List_Members = Info_Members.members
-for k, v in pairs(List_Members) do
-if Info_Members.members[k].status.luatele == "chatMemberStatusCreator" then
-UserInfo = bot.getUser(v.member_id.user_id)
-end
-end
-local Get_Chat = bot.getChat(msg.chat_id)
-local Info_Chats = bot.getSupergroupFullInfo(msg.chat_id)
-local nameuser = bot.getUser(msg.sender_id.user_id)
-if nameuser.first_name then
-nameuser = "["..nameuser.first_name.."](tg://user?id="..nameuser.id..")"
-else
-nameuser = 'لا يوجد اسم'
-end
-local nameuserr = bot.getUser(Remsg.sender_id.user_id)
-if nameuserr.first_name then
-nameuserr = "["..nameuserr.first_name.."](tg://user?id="..nameuserr.id..")"
-else
-nameuserr = 'لا يوجد اسم'
-end
-local id = tostring(msg.chat_id)
-gt = string.upper(id:gsub('-100',''))
-gtr = math.floor(msg.reply_to_message_id/2097152/0.5)
-telink = "http://t.me/c/"..gt.."/"..gtr..""
-bot.deleteMessages(msg.chat_id,{[1]= msg.id})
-textd = '⇜ فيه بلاغ جديد ⚠️\n- القروب : ['..Get_Chat.title..']('..Info_Chats.invite_link.invite_link..')\n\n- الساعة : '..os.date("%p %I:%M:%S")..'\n- التاريخ : '..os.date("%Y/%m/%d")..'\n- صاحب البلاغ : '..nameuser..'\n- صاحب الرسالة : '..nameuserr..'\n- رابط الرسالة : '..telink..''
-local reply_markup = bot.replyMarkup{
-type = 'inline',
-data = {
-{{text="• مسح الرسالة •",data = msg.reply_to_message_id..":kk:"..gt.."/delreb:"..UserInfo.id}},
-}
-}
-bot.sendText(UserInfo.id,0,textd,"md",false, false, false, false, reply_markup)
-end
-end
-if text == "تفعيل البلاغات" or text == "تفعيل بلاغات" then
-if not msg.Manger then
-return send(msg.chat_id,msg.id,"↯︙ هذا الامر يخص المدير")
-end
-send(msg_chat_id,msg_id,GetByName(msg).."⇜ تم تفعيل البلاغات","md",true )
-Redis:set(Fast.."rebomsg"..msg.chat_id,true)
-end
-if text == "تعطيل البلاغات" or text == "تعطيل بلاغات" then
-if not msg.Manger then
-return send(msg.chat_id,msg.id,"↯︙ هذا الامر يخص المدير")
-end
-send(msg_chat_id,msg_id,GetByName(msg).."⇜ تم تعطيل البلاغات","md",true )
-Redis:del(Fast.."rebomsg"..msg.chat_id)
-end
+
 if text == "تفعيل الابراج" then
 if not msg.Manger then
 return send(msg.chat_id,msg.id,"↯︙ هذا الامر يخص المدير")
