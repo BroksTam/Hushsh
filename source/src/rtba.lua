@@ -1663,7 +1663,10 @@ Redis:sadd(Fast.."Admin:Group"..msg_chat_id,UserId[2])
 return send(msg_chat_id,msg_id,Reply_Status(UserId[2],"↯︙ تم ترقيته ادمن  ").Reply,"md",true)  
 end
 end
-if UserId[1] == "مميز" then
+if TextMsg == "مميز" then
+if not msg.Admin then
+return send(msg_chat_id,msg_id,'\n*↯︙ هذا الامر يخص ⦗  '..Controller_Num(7)..'  ⦘* ',"md",true)  
+end
 if ChannelJoinch(msg) == false then
 local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = Redis:get(Fast..'Chat:Channel:Join:Name'..msg.chat_id), url = 't.me/'..Redis:get(Fast..'Chat:Channel:Join'..msg.chat_id)}, },}}
 return send(msg.chat_id,msg.id,'*\n↯︙ عليك الاشتراك في قناة البوت لأستخدام الاوامر*',"md",false, false, false, false, reply_markup)
@@ -1675,12 +1678,11 @@ end
 if not msg.Creator and not Redis:get(Fast.."Status:SetId"..msg_chat_id) then
 return send(msg_chat_id,msg_id,"↯︙ تم تعطيل (الرفع) من قبل المنشئين","md",true)
 end 
-
-if Redis:sismember(Fast.."Special:Group"..msg_chat_id,UserId[2]) then
-return send(msg_chat_id,msg_id,Reply_Status(UserId[2],"↯︙ تم ترقيته مميز  مسبقا ").Reply,"md",true)  
+if Redis:sismember(Fast.."Special:Group"..msg_chat_id,rep_idd) then
+return send(msg_chat_id,msg_id,Reply_Status(rep_idd,"↯︙ تم ترقيته مميز  مسبقا ").Reply,"md",true)  
 else
-Redis:sadd(Fast.."Special:Group"..msg_chat_id,UserId[2]) 
-return send(msg_chat_id,msg_id,Reply_Status(UserId[2],"↯︙ تم ترقيته مميز  ").Reply,"md",true)  
+Redis:sadd(Fast.."Special:Group"..msg_chat_id,rep_idd) 
+return send(msg_chat_id,msg_id,Reply_Status(rep_idd,"↯︙ تم ترقيته مميز  ").Reply,"md",true)  
 end
 end
 end
