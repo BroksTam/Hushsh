@@ -21,7 +21,7 @@ send(msg.chat_id,msg.id,'\n*• هذا الامر يخص  '..Controller_Num(6)..
 return false 
 end
 Redis:set(Fast..msg.chat_id..'porn',true)
-send(msg.chat_id,msg.id,'\n• تم قفل الاباحي بنجاح')
+send(msg.chat_id,msg.id,'\n↯︙ عزيزي 「 ['..UserInfo.first_name..'](tg://user?id='..who_promot..')⁪⁬‌‌‌‌ 」\n• تم قفل الاباحي بنجاح')
 end
 if text == "فتح الاباحي" then
 if not msg.Manger then
